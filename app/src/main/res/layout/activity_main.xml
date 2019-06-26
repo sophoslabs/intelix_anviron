@@ -20,10 +20,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_title_action_bar_height"
-            app:subtitle="Powered by Intelix"
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:title="@string/app_name"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Body1" />
+            app:subtitle="Powered by Intelix"
+            app:subtitleTextAppearance="@style/AppBar.SubTitle.Theme"
+            app:titleTextAppearance="@style/AppBar.Title.Theme"/>
 
         <!--<TextView-->
             <!--android:id="@+id/title"-->
@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay"
+
             />
     </android.support.design.widget.AppBarLayout>
 

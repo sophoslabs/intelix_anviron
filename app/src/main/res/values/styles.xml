@@ -18,10 +18,18 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">10sp</item>
     </style>
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="AppBar.Title.Theme" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="AppBar.SubTitle.Theme" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>

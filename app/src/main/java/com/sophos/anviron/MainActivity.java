@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+
+
+
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
-
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -38,11 +39,4 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-////        return super.onCreateOptionsMenu(menu);
-//        return true;
-//    }
 }
