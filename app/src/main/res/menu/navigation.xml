@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:checkable="true"
+        android:color="@android:color/holo_green_dark"
+        android:enabled="true"
+        android:title="Scans" />
+
+    <item
+        android:id="@+id/navigation_report"
+        android:checkable="true"
+        android:color="@color/colorPrimary"
+        android:enabled="true"
+        android:title="Reports" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:checkable="true"
+        android:color="@android:color/holo_orange_dark"
+        android:enabled="true"
+        android:title="Detections"
+        />
+
+</menu>

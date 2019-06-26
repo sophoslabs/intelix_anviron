@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AnViron</string>
+    <string name="tab_text_1">Quick Scan</string>
+    <string name="tab_text_2">Deep Scan</string>
+</resources>
