@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay"
-
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
             />
     </android.support.design.widget.AppBarLayout>
 
@@ -65,7 +65,7 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="0dp"
-        android:layout_height="40sp"
+        android:layout_height="@dimen/bottom_nav_view_height"
         android:background="?android:attr/windowBackground"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"

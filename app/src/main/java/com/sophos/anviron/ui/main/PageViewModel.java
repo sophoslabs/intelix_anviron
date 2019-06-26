@@ -9,6 +9,7 @@ import android.arch.lifecycle.ViewModel;
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
+
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
@@ -22,5 +23,9 @@ public class PageViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    public int getMIndex(){
+        return mIndex.getValue();
     }
 }

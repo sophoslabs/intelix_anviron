@@ -1,6 +1,8 @@
 package com.sophos.anviron;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +15,7 @@ import android.view.View;
 
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,31 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+    }
 
+    private void setNavigationViewListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
 
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_scans: {
+                break;
+            }
+            case R.id.navigation_reports: {
+//                Intent intent = new Intent(MainActivity.this, ReportsActivity.class);
+//                startActivity(intent);
+                break;
+            }
+            case R.id.navigation_detections: {
+//                Intent intent = new Intent(MainActivity.this, DetectionsActivity.class);
+//                startActivity(intent);
+                break;
+            }
+        }
+        return true;
+    }
 
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -38,5 +63,5 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-    }
+
 }
