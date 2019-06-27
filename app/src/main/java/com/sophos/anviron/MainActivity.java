@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         scan.setStatus(0);
         db_instance.getScanDAO().insert(scan);
         String scan_info = db_instance.getScanDAO().getScanInfo().toString();
-        Log.i("sanket", scan_info);
+        Log.i("scan_info", scan_info);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

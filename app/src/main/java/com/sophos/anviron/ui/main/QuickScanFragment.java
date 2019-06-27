@@ -30,7 +30,7 @@ public class QuickScanFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 //    private PageViewModel pageViewModel;
     private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
-    ArrayList<File> filesToScan = new ArrayList<>();
+    ArrayList<File> filesToScan = null;
 
     public static QuickScanFragment newInstance(int index) {
         QuickScanFragment fragment = new QuickScanFragment();
@@ -77,6 +77,8 @@ public class QuickScanFragment extends Fragment {
 
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        filesToScan = new ArrayList<>();
 
         super.onActivityResult(requestCode, resultCode, data);
 
