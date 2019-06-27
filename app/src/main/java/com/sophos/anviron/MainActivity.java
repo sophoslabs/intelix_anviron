@@ -4,18 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
+
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -28,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
+        //View v = LayoutInflater.from(this).inflate(R.layout.quick_scan_fragment, null);
+        // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
         setNavigationViewListener();
 
@@ -38,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
-    @Override
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_scans: {
@@ -57,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return true;
     }
-
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
