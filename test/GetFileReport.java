@@ -75,11 +75,6 @@ public class GetFileReport {
     }
 
     public HashMap<String, String> makeApiRequests(AccessToken access_token) throws Exception{
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
         HashMap<String, String> report_map = new HashMap<String, String>();
 
         String local_url = this.url;        
@@ -104,19 +99,11 @@ public class GetFileReport {
         }
 
         URL url;
-<<<<<<< HEAD
         if(this.http_method == "GET" && !this.params.isEmpty()){            
             String url_str = local_url + "?" + get_params(this.params);
             URL temp_url = new URL(url_str);                
             url = temp_url;
         }else{            
-=======
-        if(http_method == "GET" && !this.params.isEmpty()){
-            String url_str = local_url + "?" + get_params(this.params);
-            URL temp_url = new URL(url_str);                
-            url = temp_url;
-        }else{
->>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
             URL temp_url = new URL(local_url); 
             url = temp_url;
         }
@@ -134,11 +121,7 @@ public class GetFileReport {
             http_conn.setRequestProperty("X-Correlation-ID", this.correlation_id);  
         }
 
-<<<<<<< HEAD
         if(this.http_method == "POST"){
-=======
-        if(http_method == "POST"){
->>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
             String postData = get_params(this.params);  
             http_conn.setDoOutput(true);
             try(DataOutputStream wr = new DataOutputStream(http_conn.getOutputStream())) {            
@@ -150,16 +133,11 @@ public class GetFileReport {
         try{            
             InputStream inputStream = http_conn.getInputStream();            
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-<<<<<<< HEAD
             String line = "";            
-=======
-            String line = "";
->>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
             while ((line = bufferedReader.readLine()) != null) {
                 data = data + line;                
             }
         }catch (Exception e) {
-<<<<<<< HEAD
             data = "NA";
             System.out.println(e.toString());
             
@@ -177,28 +155,6 @@ public class GetFileReport {
                 report_map.put(this.job_id, data);
         }
         return report_map;       
-=======
-            if (http_conn.getResponseCode() == 400){
-                data = "Report not present";
-            }else{
-                data = "";
-            }
-            System.out.println(e.toString());
-            
-        }finally{
-            http_conn.disconnect();
-        }        
-        if(this.file != null){
-            report_map.put(this.file, data);            
-        }
-        if(this.sha256 != null){
-            report_map.put(this.sha256, data);
-        }
-        if(this.job_id != null){
-            report_map.put(this.job_id, data);
-        }
-        return report_map;
->>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
 
     }    
     
