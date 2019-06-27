@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/navigation_scans"
+        android:icon="@drawable/ic_fingerprint_black_24dp"
         android:checkable="true"
         android:color="@android:color/holo_green_dark"
         android:enabled="true"
@@ -10,6 +11,7 @@
 
     <item
         android:id="@+id/navigation_reports"
+        android:icon="@drawable/ic_view_list_black_24dp"
         android:checkable="true"
         android:color="@color/colorPrimary"
         android:enabled="true"
@@ -17,6 +19,7 @@
 
     <item
         android:id="@+id/navigation_detections"
+        android:icon="@drawable/ic_new_releases_black_24dp"
         android:checkable="true"
         android:color="@android:color/holo_orange_dark"
         android:enabled="true"
