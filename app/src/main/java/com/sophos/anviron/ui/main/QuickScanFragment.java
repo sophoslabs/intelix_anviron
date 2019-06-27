@@ -16,7 +16,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
-import com.sophos.anviron.Utils;
+import com.sophos.anviron.service.main.ScanService;
+import com.sophos.anviron.util.main.CommonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,8 +28,9 @@ import java.util.ArrayList;
 public class QuickScanFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private PageViewModel pageViewModel;
+//    private PageViewModel pageViewModel;
     private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
+    ArrayList<File> filesToScan = new ArrayList<>();
 
     public static QuickScanFragment newInstance(int index) {
         QuickScanFragment fragment = new QuickScanFragment();
@@ -41,12 +43,12 @@ public class QuickScanFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+//        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        pageViewModel.setIndex(index);
+//        pageViewModel.setIndex(index);
     }
 
     @Override
@@ -54,8 +56,8 @@ public class QuickScanFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        int current_page_index = pageViewModel.getMIndex();
-        Log.i("current_page_index:", Integer.toString(current_page_index));
+//        int current_page_index = pageViewModel.getMIndex();
+//        Log.i("current_page_index:", Integer.toString(current_page_index));
 
         final View root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
 
@@ -75,9 +77,9 @@ public class QuickScanFragment extends Fragment {
 
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        ArrayList<File> filesToScan = new ArrayList<>();
         if(requestCode == 9999 && data!=null){
             if (resultCode == -1){
                 ArrayList<Uri> selectedFiles  = data.getParcelableArrayListExtra(Constants.SELECTED_ITEMS);
@@ -86,13 +88,16 @@ public class QuickScanFragment extends Fragment {
                     String path = selectedFiles.get(i++).getPath();
                     File file = new File(path);
                     if (file.isDirectory()) {
-                        filesToScan = Utils.getAllNestedFilesRecursively(filesToScan, file);
+                        filesToScan = CommonUtils.getAllNestedFilesRecursively(filesToScan, file);
                     }
                 }
                 Log.i("files", filesToScan.toString());
             }
         }
-    }
 
+        ScanService scanService = new ScanService(filesToScan);
+        scanService.scanFiles();
+
+    }
 
 }
