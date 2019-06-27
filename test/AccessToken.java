@@ -119,7 +119,7 @@ public class AccessToken {
         String acc_token = String.valueOf(jo.get("access_token"));
         setAccessToken(acc_token);
         setTokenDateTime();
-        //System.out.println(acc_token);
+        System.out.println(acc_token);
 
         return acc_token;
 

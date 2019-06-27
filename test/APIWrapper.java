@@ -54,7 +54,7 @@ public class APIWrapper {
         HashMap<String, String> map = AccessToken.get_client_secret("secrets.env");
         AccessToken access_token = new AccessToken(map.get("client"), map.get("secret"));
         access_token.generate_access_token();
-        GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method,this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);        
+        GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method,this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);
         return  getFileReport.makeApiRequests(access_token);
     }
 }
