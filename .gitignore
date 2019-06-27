@@ -1,3 +1,6 @@
+# Secrets Files
+secrets.env
+
 # Built application files
 *.apk
 *.ap_
@@ -63,3 +66,6 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+# Secrets
+app/src/main/res/values/secrets.xml

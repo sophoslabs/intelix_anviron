@@ -6,4 +6,5 @@
     <!--<dimen name="appbar_padding">16dp</dimen>-->
     <!--<dimen name="fab_margin">16dp</dimen>-->
     <dimen name="appbar_title_action_bar_height">50sp</dimen>
+    <dimen name="bottom_nav_view_height">50sp</dimen>
 </resources>
