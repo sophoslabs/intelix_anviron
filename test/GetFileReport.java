@@ -75,7 +75,7 @@ public class GetFileReport {
     }
 
     public HashMap<String, String> makeApiRequests(AccessToken access_token) throws Exception{
-        
+
         HashMap<String, String> report_map = new HashMap<String, String>();
 
         String local_url = this.url;        
@@ -100,11 +100,11 @@ public class GetFileReport {
         }
 
         URL url;
-        if(http_method == "GET" && !this.params.isEmpty()){
+        if(this.http_method == "GET" && !this.params.isEmpty()){            
             String url_str = local_url + "?" + get_params(this.params);
             URL temp_url = new URL(url_str);                
             url = temp_url;
-        }else{
+        }else{            
             URL temp_url = new URL(local_url); 
             url = temp_url;
         }
@@ -122,7 +122,7 @@ public class GetFileReport {
             http_conn.setRequestProperty("X-Correlation-ID", this.correlation_id);  
         }
 
-        if(http_method == "POST"){
+        if(this.http_method == "POST"){
             String postData = get_params(this.params);  
             http_conn.setDoOutput(true);
             try(DataOutputStream wr = new DataOutputStream(http_conn.getOutputStream())) {            
@@ -134,31 +134,28 @@ public class GetFileReport {
         try{            
             InputStream inputStream = http_conn.getInputStream();            
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
+            String line = "";            
             while ((line = bufferedReader.readLine()) != null) {
                 data = data + line;                
             }
         }catch (Exception e) {
-            if (http_conn.getResponseCode() == 400){
-                data = "Report not present";
-            }else{
-                data = "";
-            }
+            data = "NA";
             System.out.println(e.toString());
             
-        }finally{
+        }finally{                        
             http_conn.disconnect();
-        }        
-        if(this.file != null){
-            report_map.put(this.file, data);            
+            
         }
-        if(this.sha256 != null){
-            report_map.put(this.sha256, data);
+        if(this.file != null){
+                report_map.put(this.file, data);            
+        }
+        if(this.sha256 != null){                
+                report_map.put(this.sha256, data);
         }
         if(this.job_id != null){
-            report_map.put(this.job_id, data);
+                report_map.put(this.job_id, data);
         }
-        return report_map;
+        return report_map;       
 
     }    
     
