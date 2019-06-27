@@ -90,6 +90,8 @@ public class QuickScanFragment extends Fragment {
                     if (file.isDirectory()) {
                         filesToScan = CommonUtils.getAllNestedFilesRecursively(filesToScan, file);
                     }
+                    else
+                        filesToScan.add(file);
                 }
                 Log.i("files", filesToScan.toString());
             }
