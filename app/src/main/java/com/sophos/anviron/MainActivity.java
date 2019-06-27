@@ -1,14 +1,22 @@
 package com.sophos.anviron;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+
+import com.aditya.filebrowser.Constants;
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
         setNavigationViewListener();
-
     }
 
     private void setNavigationViewListener() {
@@ -62,5 +69,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
 
 }

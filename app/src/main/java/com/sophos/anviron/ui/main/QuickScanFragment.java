@@ -1,8 +1,10 @@
 package com.sophos.anviron.ui.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +16,22 @@ import android.arch.lifecycle.ViewModelProviders;
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
+import com.sophos.anviron.Utils;
 
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class QuickScanFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
     private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
 
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static QuickScanFragment newInstance(int index) {
+        QuickScanFragment fragment = new QuickScanFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);
@@ -43,16 +48,6 @@ public class PlaceholderFragment extends Fragment {
         }
         pageViewModel.setIndex(index);
     }
-
-
-
-/*    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
-            case 9999:
-                Log.i("Test", "Result URI " + data.toString());
-                break;
-        }
-    }*/
 
     @Override
     public View onCreateView(
@@ -77,4 +72,27 @@ public class PlaceholderFragment extends Fragment {
         });
         return root;
     }
+
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<File> filesToScan = new ArrayList<>();
+        if(requestCode == 9999 && data!=null){
+            if (resultCode == -1){
+                ArrayList<Uri> selectedFiles  = data.getParcelableArrayListExtra(Constants.SELECTED_ITEMS);
+                int i = 0;
+                while(i<selectedFiles.size()){
+                    String path = selectedFiles.get(i++).getPath();
+                    File file = new File(path);
+                    if (file.isDirectory()) {
+                        filesToScan = Utils.getAllNestedFilesRecursively(filesToScan, file);
+                    }
+                }
+                Log.i("files", filesToScan.toString());
+            }
+        }
+    }
+
+
 }

@@ -27,11 +27,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
+        // Return a QuickScanFragment (defined as a static inner class below).
 
         switch (position) {
             case 0:
-                return PlaceholderFragment.newInstance(position);
+                return QuickScanFragment.newInstance(position);
             case 1:
                 return DeepScanFragment.newInstance(position);
             default:
