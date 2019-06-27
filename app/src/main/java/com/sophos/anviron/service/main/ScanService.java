@@ -1,41 +1,86 @@
 package com.sophos.anviron.service.main;
 
+import android.app.IntentService;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.sophos.anviron.R;
+import com.sophos.anviron.dao.FileScanMappingDAO;
+import com.sophos.anviron.models.File;
+import com.sophos.anviron.models.FileScanMapping;
+import com.sophos.anviron.models.Scan;
 import com.sophos.anviron.util.main.APIWrapper;
 import com.sophos.anviron.util.main.CommonUtils;
-import java.io.File;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-public class ScanService {
+public class ScanService extends IntentService {
 
-    ArrayList<File> filesToScan = new ArrayList<>();
-    private static String api = "https://de.api.labs.sophos.com";
-    private static String api_endpoint = "lookup/files/v1";
-    private static String corelation_id = null;
+    /**
+     * Creates an IntentService.  Invoked by your subclass's constructor.
+     */
 
-    public ScanService(ArrayList<File> filesToScan) {
-        this.filesToScan = filesToScan;
+    private static String apiURI = "https://de.api.labs.sophos.com";
+    private static String apiEndpoint = "lookup/files/v1";
+    private static String corelationId = null;
+
+    public ScanService() {
+        super("ScanService");
     }
 
-    public String scanFiles() {
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
         try {
-            for (File file : filesToScan) {
-                String fileSHA256 = CommonUtils.getSHA256(file.toString());
-                Log.i("sha256", fileSHA256);
+            Log.i("ScanService", "Running ScanService...");
 
-                HashMap<String, String> params_map = new HashMap<String, String>();
-                HashMap<String, String> file_orjob_id = new HashMap<String, String>();
-                file_orjob_id.put("sha256", fileSHA256);
-                APIWrapper api_wrapper = new APIWrapper(api, api_endpoint, corelation_id, params_map, file_orjob_id);
-                HashMap<String, String> report_map = api_wrapper.get_file_report();
-                Log.i("report",report_map.get(fileSHA256));
+            while (true) {
+
+                DatabaseService dbInstance = DatabaseService.getInstance(getApplicationContext());
+
+                //Handle quick scan (without submission) requests
+                List<FileScanMappingDAO.CustomJoinFileScanMapping> customJoinFileScanMappings = dbInstance.getMappingDAO().getFilesByStatus("in progress");
+
+                try {
+                    for (FileScanMappingDAO.CustomJoinFileScanMapping mapping: customJoinFileScanMappings) {
+
+                        String fileSHA256 = CommonUtils.getSHA256(mapping.filePath);
+                        HashMap<String, String> params_map = new HashMap<>();
+                        HashMap<String, String> fileOrJobId = new HashMap<>();
+                        fileOrJobId.put("sha256", fileSHA256);
+                        APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
+                        HashMap<String, String> report_map = api_wrapper.get_file_report();
+                        Log.i("reportfile",mapping.fileId);
+                        Log.i("reportscan",mapping.scanId);
+                        Log.i("reportpath",mapping.filePath);
+                        Log.i("report",report_map.get(fileSHA256));
+
+
+                        dbInstance.getMappingDAO().update();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Thread.sleep(Integer.parseInt(getApplication().getResources().getString(R.string.poll_interval)));
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        return null;
+        } catch (Exception e) {
+            Log.e("ScanService", e.toString());
+        }
     }
 }

@@ -12,4 +12,8 @@ public interface FileDAO extends BaseDAO<File> {
 
     @Query("Select * FROM file WHERE file_id = :id")
     public List<File> getDetectionsById(Long id);
+
+    @Query("Select file_id FROM file WHERE file_path=:filePath")
+    public String getFileIdByFilePath(String filePath);
+
 }

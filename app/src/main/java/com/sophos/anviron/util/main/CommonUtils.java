@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.UUID;
 
 public class CommonUtils {
 
@@ -49,4 +52,15 @@ public class CommonUtils {
         byte[] resultByteArray = digest.digest();
         return bytesToHexString(resultByteArray);
     }
+
+    public static String generateUUID(){
+        return UUID.randomUUID().toString();
+    }
+
+    public static String getCurrentDateTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        return sdf.format(Calendar.getInstance().getTime());
+    }
+
+
 }

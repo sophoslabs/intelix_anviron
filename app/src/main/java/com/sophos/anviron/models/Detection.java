@@ -7,21 +7,12 @@ import java.sql.Timestamp;
 
 @Entity(tableName = "detection")
 public class Detection {
-    @PrimaryKey (autoGenerate = true)
-    @NonNull private Long detection_id;
-    @NonNull private Long file_id;
+    @PrimaryKey
+    @NonNull private String detection_id;
+    @NonNull private String file_id;
     private String detection_name;
     private Integer rep_score;
     private String detection_time;
-
-    @NonNull
-    public Long getFile_id() {
-        return file_id;
-    }
-
-    public void setFile_id(@NonNull Long file_id) {
-        this.file_id = file_id;
-    }
 
     public String getDetection_name() {
         return detection_name;
@@ -47,13 +38,21 @@ public class Detection {
         this.detection_time = detection_time;
     }
 
-
     @NonNull
-    public Long getDetection_id() {
+    public String getDetection_id() {
         return detection_id;
     }
 
-    public void setDetection_id(@NonNull Long detection_id) {
+    public void setDetection_id(@NonNull String detection_id) {
         this.detection_id = detection_id;
+    }
+
+    @NonNull
+    public String getFile_id() {
+        return file_id;
+    }
+
+    public void setFile_id(@NonNull String file_id) {
+        this.file_id = file_id;
     }
 }

@@ -1,7 +1,5 @@
 package com.sophos.anviron;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -13,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import com.sophos.anviron.models.Scan;
+import com.sophos.anviron.service.main.DatabaseService;
+import com.sophos.anviron.service.main.ScanService;
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,16 +28,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AppDatabase db_instance = AppDatabase.getInstance(this.getApplicationContext());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String submission_time = sdf.format(Calendar.getInstance().getTime());
-        Scan scan = new Scan();
-        scan.setType(true);
-        scan.setSubmission_time(submission_time);
-        scan.setCompletion_time(null);
-        scan.setStatus(0);
-        db_instance.getScanDAO().insert(scan);
+
+        DatabaseService db_instance = DatabaseService.getInstance(this.getApplicationContext());
         String scan_info = db_instance.getScanDAO().getScanInfo().toString();
+
+
+
         Log.i("scan_info", scan_info);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -53,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        Intent intent = new Intent(this, ScanService.class);
+        startService(intent);
 
     }
 

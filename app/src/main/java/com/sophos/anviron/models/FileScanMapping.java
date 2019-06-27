@@ -5,35 +5,47 @@ import android.support.annotation.NonNull;
 
 @Entity(tableName = "file_scan_mapping")
 public class FileScanMapping {
-    @PrimaryKey
-    @NonNull private Integer id;
-    @NonNull private Long file_id;
-    @NonNull private Long scan_id;
+    @PrimaryKey(autoGenerate = true)
+    @NonNull private Long id;
+    @NonNull private String file_id;
+    @NonNull private String status;
 
     @NonNull
-    public Long getFile_id() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(@NonNull String status) {
+        this.status = status;
+    }
+
+    @NonNull
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Long id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getFile_id() {
         return file_id;
     }
 
-    public void setFile_id(@NonNull Long file_id) {
+    public void setFile_id(@NonNull String file_id) {
         this.file_id = file_id;
     }
 
     @NonNull
-    public Long getScan_id() {
+    public String getScan_id() {
         return scan_id;
     }
 
-    public void setScan_id(@NonNull Long scan_id) {
+    public void setScan_id(@NonNull String scan_id) {
         this.scan_id = scan_id;
     }
 
-    @NonNull
-    public Integer getId() {
-        return id;
-    }
+    @NonNull private String scan_id;
 
-    public void setId(@NonNull Integer id) {
-        this.id = id;
-    }
 }

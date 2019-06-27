@@ -5,16 +5,18 @@ import android.support.annotation.NonNull;
 
 @Entity(tableName = "file")
 public class File {
-    @PrimaryKey(autoGenerate = true)
-    @NonNull private Long file_id;
+
+    @PrimaryKey
+    @NonNull private String file_id;
     @NonNull private String file_path;
 
+
     @NonNull
-    public Long getFile_id() {
+    public String getFile_id() {
         return file_id;
     }
 
-    public void setFile_id(@NonNull Long file_id) {
+    public void setFile_id(@NonNull String file_id) {
         this.file_id = file_id;
     }
 

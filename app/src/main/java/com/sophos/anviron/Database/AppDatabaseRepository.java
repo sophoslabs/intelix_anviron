@@ -3,7 +3,7 @@ package com.sophos.anviron.Database;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 
-import com.sophos.anviron.AppDatabase;
+import com.sophos.anviron.service.main.DatabaseService;
 import com.sophos.anviron.dao.DetectionDAO;
 import com.sophos.anviron.dao.FileDAO;
 import com.sophos.anviron.dao.FileScanMappingDAO;
@@ -14,7 +14,6 @@ import com.sophos.anviron.models.FileScanMapping;
 import com.sophos.anviron.models.Scan;
 
 import java.util.List;
-import java.util.ListIterator;
 
 public class AppDatabaseRepository {
 
@@ -30,7 +29,7 @@ public class AppDatabaseRepository {
 
     AppDatabaseRepository(Application application)
     {
-        AppDatabase db = AppDatabase.getInstance(application);
+        DatabaseService db = DatabaseService.getInstance(application);
         scanDAO = db.getScanDAO();
         fileDAO = db.getFileDAO();
         fileScanMappingDAO = db.getMappingDAO();

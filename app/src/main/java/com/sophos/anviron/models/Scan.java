@@ -8,29 +8,38 @@ import java.sql.Timestamp;
 
 @Entity(tableName = "scan")
 public class Scan {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
-    private Long scan_id;
-    private Boolean type;
+    private String scan_id;
+    private String type;
+    private Boolean is_file_uploaded;
     private String submission_time;
     private String completion_time;
-    private Integer status;
+    private String status;
 
     @NonNull
-    public Long getScan_id() {
+    public String getScan_id() {
         return scan_id;
     }
 
-    public void setScan_id(@NonNull Long scan_id) {
+    public void setScan_id(@NonNull String scan_id) {
         this.scan_id = scan_id;
     }
 
-    public Boolean getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getIs_file_uploaded() {
+        return is_file_uploaded;
+    }
+
+    public void setIs_file_uploaded(Boolean is_file_uploaded) {
+        this.is_file_uploaded = is_file_uploaded;
     }
 
     public String getSubmission_time() {
@@ -49,11 +58,11 @@ public class Scan {
         this.completion_time = completion_time;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
