@@ -1,3 +1,6 @@
+# Secrets Files
+secrets.env
+
 # Built application files
 *.apk
 *.ap_

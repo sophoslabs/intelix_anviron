@@ -15,6 +15,9 @@ import java.net.Proxy;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*; 
+
 public class AccessToken {
     String client;
     String secret;
@@ -61,8 +64,6 @@ public class AccessToken {
         }
     }
 
-
-
     public String get_auth(String encoding){
         return "Basic " + encoding;
     }
@@ -82,7 +83,7 @@ public class AccessToken {
         return creds;
     }
 
-    public String get_access_token() throws Exception{
+    public String generate_access_token() throws Exception{
         URL url = new URL(this.url);                
         Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
         HttpURLConnection http_con = (HttpURLConnection) url.openConnection(webproxy);
@@ -113,7 +114,13 @@ public class AccessToken {
             http_con.disconnect();
         }
 
-        return data;
+        Object obj = new JSONParser().parse(data);
+        JSONObject jo = (JSONObject) obj;
+        String acc_token = String.valueOf(jo.get("access_token"));
+        setAccessToken(acc_token);
+        setTokenDateTime();
+
+        return acc_token;
 
     }
 
