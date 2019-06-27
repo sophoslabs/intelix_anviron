@@ -53,8 +53,8 @@ public class APIWrapper {
     public HashMap<String, String> get_file_report() throws Exception{
         HashMap<String, String> map = AccessToken.get_client_secret("secrets.env");
         AccessToken access_token = new AccessToken(map.get("client"), map.get("secret"));
-        System.out.println(access_token.token_creation_time);
-
+        access_token.generate_access_token();
+        
         GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method,this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);        
         
         //System.out.println(this.api_url +"  "+this.api_endpoint+"  "+this.http_method+"  "+this.params_map+"  "+this.sha256+"  "+this.content_type+"  "+this.correlation_id+"  "+this.job_id+"  "+this.sha256);
