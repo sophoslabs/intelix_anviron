@@ -40,7 +40,11 @@ public class APIWrapper {
     public void set_params_analysis_apis(String api_url, String api_endpoint, String correlation_id, 
                                      HashMap<String, String> params_map, HashMap<String, String> file_orjobid){
         
+<<<<<<< HEAD
         if(api_endpoint.indexOf("reports") == -1){
+=======
+        if(api_endpoint.indexOf("reports") != -1){
+>>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
             this.http_method = "POST";
             this.content_type = "multipart/form-data";      
         } else{
@@ -54,8 +58,19 @@ public class APIWrapper {
         HashMap<String, String> map = AccessToken.get_client_secret("secrets.env");
         AccessToken access_token = new AccessToken(map.get("client"), map.get("secret"));
         access_token.generate_access_token();
+<<<<<<< HEAD
 
         GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method,this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);        
         return  getFileReport.makeApiRequests(access_token);
+=======
+        
+        GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method,this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);        
+        
+        //System.out.println(this.api_url +"  "+this.api_endpoint+"  "+this.http_method+"  "+this.params_map+"  "+this.sha256+"  "+this.content_type+"  "+this.correlation_id+"  "+this.job_id+"  "+this.sha256);
+
+        return getFileReport.makeApiRequests(access_token);
+                                      
+
+>>>>>>> 9b39d6dcf823d223b6f73f5ac053653692e2eb32
     }
 }

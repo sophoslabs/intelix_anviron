@@ -1,19 +1,23 @@
 package com.sophos.anviron;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.aditya.filebrowser.Constants;
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -26,8 +30,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
+        //View v = LayoutInflater.from(this).inflate(R.layout.quick_scan_fragment, null);
+        // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
-
+        setNavigationViewListener();
     }
 
     private void setNavigationViewListener() {
@@ -35,25 +41,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_scans: {
                 break;
             }
             case R.id.navigation_reports: {
-//                Intent intent = new Intent(MainActivity.this, ReportsActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, ReportsActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.navigation_detections: {
-//                Intent intent = new Intent(MainActivity.this, DetectionsActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, DetectionsActivity.class);
+                startActivity(intent);
                 break;
             }
         }
         return true;
     }
-
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -63,5 +69,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
 
 }
