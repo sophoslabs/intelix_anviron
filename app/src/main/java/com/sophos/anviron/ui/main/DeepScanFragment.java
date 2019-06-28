@@ -28,7 +28,7 @@ import com.sophos.anviron.R;
 public class DeepScanFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private PageViewModel pageViewModel;
+//    private PageViewModel pageViewModel;
     private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
 
     public static DeepScanFragment newInstance(int index) {
@@ -42,12 +42,12 @@ public class DeepScanFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+//        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        pageViewModel.setIndex(index);
+//        pageViewModel.setIndex(index);
     }
 
 /*    public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,8 +63,8 @@ public class DeepScanFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        int current_page_index  = pageViewModel.getMIndex();
-        Log.i("current_page_index:", Integer.toString(current_page_index));
+//        int current_page_index  = pageViewModel.getMIndex();
+//        Log.i("current_page_index:", Integer.toString(current_page_index));
 
 
 /*
@@ -83,12 +83,16 @@ public class DeepScanFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.deep_scan_fragment, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
+
+
+//        pageViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
 
         Button infoButton = (Button)  root.findViewById(R.id.infoBtn2);
 

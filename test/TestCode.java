@@ -3,23 +3,28 @@ import java.util.Map;
 import org.json.simple.JSONArray; 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*; 
+import java.io.File;
+import java.nio.file.Files;
+import java.io.FileInputStream;
 
 public class TestCode{
-    public static void main(String[] args){
+    public static void main(String[] args){                
         try{
-            HashMap<String, String> map = AccessToken.get_client_secret("secrets.env");
-            AccessToken access_token = new AccessToken(map.get("client"), map.get("secret"));
-            String token = access_token.get_access_token();            
-            Object obj = new JSONParser().parse(token);            
-            JSONObject jo = (JSONObject) obj;
-            String acc_token = String.valueOf(jo.get("access_token"));
-            access_token.setAccessToken(acc_token);
-            access_token.setTokenDateTime();            
-            System.out.println(access_token.isTokenExpired());
+            String api = "https://de.api.labs.sophos.com";
+            String api_endpoint = "lookup/files/v1";
+            String corelation_id = null;
+            HashMap<String, String> params_map = new HashMap<String, String>();
+            HashMap<String, String> file_orjob_id = new HashMap<String, String>();
+            file_orjob_id.put("sha256", "a0e46d62b90aad2eb28bda87b90656cb817fe2c72aadb6f3155ccf1f66505bd4");
+            // String file_ = "/home/devaljain/Anviron/AnViron/test/TestCode.java";            
+            APIWrapper api_wrapper = new APIWrapper(api, api_endpoint, corelation_id, params_map, file_orjob_id);            
+            HashMap<String, String> report_map = api_wrapper.get_file_report();
+            System.out.println(report_map.get("a0e46d62b90aad2eb28bda87b90656cb817fe2c72aadb6f3155ccf1f66505bd4"));
 
-        }catch (Exception e) {
-            System.out.println(e.toString());
+            
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        
+
     }
 }

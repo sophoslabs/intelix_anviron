@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.main.PlaceholderFragment">
+    tools:context=".ui.main.QuickScanFragment">
 
     <!--<TextView-->
         <!--android:id="@+id/section_label"-->
@@ -74,57 +74,4 @@
         android:src="@drawable/ic_compare_black_24dp"
         android:text="Scan"
         android:textColor="@color/black" />
-
-    <RelativeLayout
-        android:clipToPadding="false"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="375dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="190dp"
-            android:layout_margin="10dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <CheckBox
-                    android:id="@+id/checkBox3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/send_checkbox" />
-
-                <Button
-                    android:id="@+id/btnSelectFilesOrFolders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="10dp"
-                    android:background="@drawable/rect_button"
-                    android:textColor="@color/white"
-                    android:textAllCaps="false"
-                    android:text="@string/select_file_button" />
-
-                <Button
-                    android:id="@+id/btnSelect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="160dp"
-                    android:background="@drawable/rect_button"
-                    android:text="@string/full_scan_button"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
-
-
 </LinearLayout>

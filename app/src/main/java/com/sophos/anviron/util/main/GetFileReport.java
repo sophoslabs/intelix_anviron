@@ -1,23 +1,16 @@
-import java.util.HashMap; 
-import java.util.Map; 
+package com.sophos.anviron.util.main;
 
-import java.io.DataOutputStream; 
+import java.util.HashMap;
+import java.util.Map; 
+import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import java.nio.charset.Charset;
-import java.io.FileReader;
 import java.net.Proxy;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*; 
-import java.io.File;
-import java.nio.file.Files;
-import java.io.FileInputStream;
 
 public class GetFileReport {
     String api_url;
@@ -144,7 +137,6 @@ public class GetFileReport {
             }else{
                 data = "";
             }
-            System.out.println(e.toString());
             
         }finally{
             http_conn.disconnect();
