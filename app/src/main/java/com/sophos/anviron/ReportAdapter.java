@@ -1,6 +1,7 @@
 package com.sophos.anviron;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView rowScanId, rowSubmissionTime, rowCompletionTime, rowStatus, rowScanType, rowTotalFiles;
-        public CheckedTextView isFileUploaded;
+        public AppCompatCheckBox isFileUploaded;
 
         public MyViewHolder(View view) {
             super(view);

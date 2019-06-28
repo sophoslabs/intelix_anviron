@@ -37,7 +37,7 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_reports);
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.report_recycle_view);
         reportAdapter = new ReportAdapter(scanReportList);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
