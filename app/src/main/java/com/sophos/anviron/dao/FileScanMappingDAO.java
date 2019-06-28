@@ -9,6 +9,7 @@ import com.sophos.anviron.models.FileScanMapping;
 public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
 
     static class CustomJoinFileScanMapping {
+
         public String fileId;
         public String filePath;
         public String scanId;
