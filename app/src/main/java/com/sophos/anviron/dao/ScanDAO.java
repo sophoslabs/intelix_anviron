@@ -39,7 +39,7 @@ public interface ScanDAO extends BaseDAO<Scan> {
             "s.completion_time as completion_time," +
             "count(m.file_id) as total_files, " +
             "case when sub.count > 0 then 'in progress' else 'completed' end as status " +
-            "FROM Scan s join file_scan_mapping m on s.scan_id = m.scan_id join " +
+            "FROM Scan s join file_scan_mapping m on s.scan_id = m.scan_id left join " +
             "(Select m1.scan_id as scan_id, count(m1.file_id) as count " +
             "from file_scan_mapping m1 " +
             "where m1.status = 'in progress' " +
