@@ -1,31 +1,39 @@
 package com.sophos.anviron;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-
-import com.aditya.filebrowser.Constants;
+import com.sophos.anviron.models.Scan;
+import com.sophos.anviron.service.main.DatabaseService;
+import com.sophos.anviron.service.main.ScanService;
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
-
-import java.io.File;
-import java.util.ArrayList;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public static String api_client;
+    public static String api_secret;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DatabaseService db_instance = DatabaseService.getInstance(this.getApplicationContext());
+
+        String scan_info = db_instance.getScanDAO().getScanInfo().toString();
+
+        Log.i("scan_info", scan_info);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -34,6 +42,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
         setNavigationViewListener();
+
+        api_client = getString(R.string.client);
+        api_secret = getString(R.string.secret);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Intent intent = new Intent(this, ScanService.class);
+        startService(intent);
+
     }
 
     private void setNavigationViewListener() {

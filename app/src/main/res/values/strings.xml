@@ -2,5 +2,11 @@
     <string name="app_name">AnViron</string>
     <string name="tab_text_1">Quick Scan</string>
     <string name="tab_text_2">Deep Scan</string>
+    <string name="quick_description"> Quick Description  kjhsadhjkhjskgdsgd</string>
+    <string name="deep_description"> Deep Description  kjhsadhjkhjskgdsgd</string>
+    <string name="send_checkbox"> Send file(s) for remote analysis</string>
+    <string name="select_file_button"> Select folders/files</string>
+    <string name="full_scan_button"> Full scan</string>
     <string name="dialog_title_pick_file"> Select folders/files to scan</string>
+    <string name="poll_interval">10000</string>
 </resources>

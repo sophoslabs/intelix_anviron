@@ -1,7 +1,9 @@
 package com.sophos.anviron.ui.main;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -92,6 +94,23 @@ public class DeepScanFragment extends Fragment {
 //            }
 //        });
 
+        Button infoButton = (Button)  root.findViewById(R.id.infoBtn2);
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                alertDialogBuilder.setTitle("Deep Scan:");
+                alertDialogBuilder.setMessage("").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
         return root;
     }
 }
