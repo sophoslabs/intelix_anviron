@@ -11,7 +11,7 @@ public class TestCode{
     public static void main(String[] args){                
         try{
             String api = "https://de.api.labs.sophos.com";
-            String api_endpoint = "analysis/file/static/v1";
+            String api_endpoint = "analysis/file/dynamic/v1";
             String corelation_id = null;
             HashMap<String, String> params_map = new HashMap<String, String>();
             HashMap<String, String> file_orjob_id = new HashMap<String, String>();

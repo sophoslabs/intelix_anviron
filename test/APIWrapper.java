@@ -68,10 +68,13 @@ public class APIWrapper {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(resp);
             String jobStatus = (String) json.get("jobStatus");
-            this.job_id = (String) json.get("jobId");            
+            this.job_id = (String) json.get("jobId");  
+            System.out.println(jobStatus);
             while(jobStatus == "IN_PROGRESS"){
-                TimeUnit.SECONDS.sleep(60);
-                this.api_endpoint = "analysis/file/static/v1/reports";
+                TimeUnit.SECONDS.sleep(30);
+                if(this.api_endpoint.indexOf("reports") == -1){
+                    this.api_endpoint = this.api_endpoint + "/reports";
+                }
                 this.http_method = "GET";
                 this.content_type = "application/json";
                 GetFileReport getFileReport = new GetFileReport(this.api_url, this.api_endpoint, this.http_method, this.params_map, this.file, this.content_type,this.correlation_id, this.job_id, this.sha256);
