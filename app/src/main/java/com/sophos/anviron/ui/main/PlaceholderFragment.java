@@ -1,5 +1,7 @@
 package com.sophos.anviron.ui.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.ViewModelProviders;
+
+import com.sophos.anviron.MainActivity;
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
@@ -73,6 +77,28 @@ public class PlaceholderFragment extends Fragment {
                 Intent i = new Intent(getActivity().getApplication().getApplicationContext(), FileChooser.class);
                 i.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.MULTIPLE_SELECTION.ordinal());
                 startActivityForResult(i, 9999);
+            }
+        });
+
+        Button infoButton = (Button)  root.findViewById(R.id.infoBtn);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                alertDialogBuilder.setTitle("Quick Scan:");
+                alertDialogBuilder.setMessage("Use this scan for a quick file(s) lookup by to figure out if its malicious or not." +
+                        "Usually it takes 4-5 sec (per file to complete a lookup).\n" +
+                        "The actual file is not submitted in this scan, " +
+                        "only its checksum is submitted in this scan.\n" +
+                        "A good option to use if file contains of any sensitive information.").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                Log.i("button", "on click called");
             }
         });
         return root;
