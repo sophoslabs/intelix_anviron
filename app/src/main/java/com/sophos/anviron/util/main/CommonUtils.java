@@ -1,14 +1,16 @@
 package com.sophos.anviron.util.main;
 
-import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.UUID;
+
 
 public class CommonUtils {
 
@@ -21,6 +23,7 @@ public class CommonUtils {
                     allFiles.add(file);
                 }
             }
+
         return allFiles;
     }
 
@@ -48,5 +51,31 @@ public class CommonUtils {
         while (digestInputStream.read(bytes) > 0);
         byte[] resultByteArray = digest.digest();
         return bytesToHexString(resultByteArray);
+    }
+
+    public static String generateUUID(){
+        return UUID.randomUUID().toString();
+    }
+
+    public static String getCurrentDateTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        return sdf.format(Calendar.getInstance().getTime());
+    }
+
+    public static String getFileNameFromFilePath(String filePath){
+        String[] fileSubPaths = filePath.split("/");
+        return fileSubPaths[fileSubPaths.length-1];
+    }
+
+    public static String getDetectionType(Long reputationScore){
+        if (reputationScore>=0 && reputationScore<=19)
+            return "malware";
+        else if(reputationScore>=20 && reputationScore<=29)
+            return "pua";
+        else if (reputationScore>=30 && reputationScore<=69)
+            return "unknown";
+        else if (reputationScore>=70 && reputationScore<=100)
+            return "clean";
+        else return "invalid";
     }
 }
