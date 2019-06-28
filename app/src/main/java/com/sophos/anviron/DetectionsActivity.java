@@ -61,10 +61,18 @@ public class DetectionsActivity extends AppCompatActivity implements BottomNavig
         detectionViewModel.getLiveFileDetectionMappings().observe(this, new android.arch.lifecycle.Observer<List<DetectionDAO.FileDetectionMapping>>() {
             @Override
             public void onChanged(@Nullable List<DetectionDAO.FileDetectionMapping> fileDetectionMappings) {
-                for (DetectionDAO.FileDetectionMapping fileDetectionMapping:fileDetectionMappings){
-                    fileDetectionMappingsList.add(fileDetectionMapping);
-                }
 
+                for (DetectionDAO.FileDetectionMapping fileDetectionMapping:fileDetectionMappings){
+
+                    boolean fileDetectionMappingDuplicate = false;
+                    for (DetectionDAO.FileDetectionMapping fileDetectionMapping1:fileDetectionMappingsList) {
+                        if (fileDetectionMapping.detectionId.equalsIgnoreCase(fileDetectionMapping1.detectionId))
+                            fileDetectionMappingDuplicate = true;
+                    }
+
+                    if(fileDetectionMappingDuplicate==false)
+                        fileDetectionMappingsList.add(fileDetectionMapping);
+                }
                 detectionsAdaptor.notifyDataSetChanged();
             }
         });

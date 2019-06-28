@@ -38,8 +38,8 @@ public interface DetectionDAO extends BaseDAO<Detection> {
     @Query("SELECT * FROM detection")
     public List<Detection> getDetections();
 
-    @Query("Select * FROM detection WHERE detection_id = :detection_id")
-    public Detection getDetectionsById(Long detection_id);
+    @Query("Select detection_id FROM detection WHERE file_id= :fileId limit 1")
+    public String getDetectionsByFileId(String fileId);
 
     @Query("SELECT f.file_id as fileId, f.file_path as filePath, d.detection_id as detectionId, d.detection_type as detectionType, d.detection_name as detectionName, d.detection_time as detectionTime, d.status as detectionStatus from file f JOIN detection d on f.file_id = d.file_id")
     public LiveData<List<FileDetectionMapping>> getFileDetections();
