@@ -14,6 +14,15 @@ public class Detection {
     private String detection_type;
     private Long rep_score;
     private String detection_time;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getDetection_type() {
         return detection_type;
@@ -71,7 +80,8 @@ public class Detection {
                 + " file id: "+file_id
                 + " rep score: "+rep_score
                 + " detection type: " + detection_type
-                + " detection time: " + detection_time;
+                + " detection time: " + detection_time
+                + " detection status: " + status;
 
     }
 }

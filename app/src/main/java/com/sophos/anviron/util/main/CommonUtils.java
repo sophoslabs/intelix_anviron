@@ -64,13 +64,13 @@ public class CommonUtils {
 
     public static String getDetectionType(Long reputationScore){
         if (reputationScore>=0 && reputationScore<=19)
-            return "MALWARE";
+            return "malware";
         else if(reputationScore>=20 && reputationScore<=29)
-            return "PUA";
+            return "pua";
         else if (reputationScore>=30 && reputationScore<=69)
-            return "UNKNOWN";
+            return "unknown";
         else if (reputationScore>=70 && reputationScore<=100)
-            return "CLEAN";
-        else return "INVALID";
+            return "clean";
+        else return "invalid";
     }
 }

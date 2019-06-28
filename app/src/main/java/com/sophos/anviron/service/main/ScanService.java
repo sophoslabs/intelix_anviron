@@ -56,13 +56,14 @@ public class ScanService extends IntentService {
 
                         String detectionType = CommonUtils.getDetectionType(reputationScore);
 
-                        if (detectionType.equalsIgnoreCase("MALWARE") || detectionType.equalsIgnoreCase("PUA")) {
+                        if (detectionType.equalsIgnoreCase("malware") || detectionType.equalsIgnoreCase("pua")) {
                             Detection detection = new Detection();
                             detection.setDetection_id(CommonUtils.generateUUID());
                             detection.setDetection_name(detectionType);
                             detection.setDetection_type(detectionType);
                             detection.setFile_id(mapping.fileId);
                             detection.setRep_score(reputationScore);
+                            detection.setStatus("detected");
                             detection.setDetection_time(CommonUtils.getCurrentDateTime());
                             dbInstance.getDetectionDAO().insert(detection);
                         }
