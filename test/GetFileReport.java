@@ -69,7 +69,7 @@ public class GetFileReport {
         for (Map.Entry<String, String> entry: params.entrySet()) {
             params_str += URLEncoder.encode(entry.getKey(), "UTF-8") + "=" + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
         }
-        params_str = params_str.replace(params_str.substring(params_str.length() - 1), "");        
+        params_str = params_str.replace(params_str.substring(params_str.length() - 1), "");         
         return params_str;
     }
 
@@ -93,7 +93,7 @@ public class GetFileReport {
         if(this.http_method == "GET" && !this.params.isEmpty()){            
             String url_str = local_url + "?" + get_params(this.params);
             URL temp_url = new URL(url_str);                
-            url = temp_url;
+            url = temp_url;            
         }else{            
             URL temp_url = new URL(local_url); 
             url = temp_url;
@@ -104,37 +104,22 @@ public class GetFileReport {
 
         http_conn.setRequestMethod(this.http_method);
         http_conn.setRequestProperty("Accept-Charset", "UTF-8");        
-        http_conn.setRequestProperty("Authorization", authorization);
-        http_conn.setRequestProperty("Connection", "Keep-Alive");
+        http_conn.setRequestProperty("Authorization", authorization);        
         
-        if(this.content_type != null){
+        if(this.content_type != null){               
             http_conn.setRequestProperty("Content-Type", this.content_type);  
         }
         if(this.correlation_id != null){
             http_conn.setRequestProperty("X-Correlation-ID", this.correlation_id);  
         }
+        http_conn.setDoOutput(true);        
 
-        if(this.http_method == "POST"){
-            http_conn.setDoOutput(true);
-            http_conn.setDoInput(true);         
-            DataOutputStream outputStream;
-            outputStream = new DataOutputStream(http_conn.getOutputStream());
-            if(this.file != null){                                
-                File file_obj = new File(this.file);                                
-                // outputStream.writeBytes("Content-Disposition: form-data; name=\"file\";filename=\"" + file_obj.getName());                
-                byte[] allBytes = new byte[(int) file_obj.length()];
-                FileInputStream fileInputStream = new FileInputStream(file_obj);                
-                outputStream.write("file=".getBytes("UTF-8"));
-                fileInputStream.read(allBytes);
-                outputStream.write(allBytes);            
-            }
-            
-            String postData = get_params(this.params);                          
-            if(postData != ""){
-                outputStream.write(postData.getBytes("UTF-8"));
-            }
-            
-        }
+        // String postData = get_params(this.params);                          
+        // if (postData != "") {
+        //     try(DataOutputStream wr = new DataOutputStream(http_conn.getOutputStream())) {            
+        //         wr.write(postData.getBytes("UTF-8"));
+        //     }
+        // }
 
         String data = "";        
         try{            
