@@ -118,8 +118,7 @@ public class AccessToken {
         JSONObject jo = (JSONObject) obj;
         String acc_token = String.valueOf(jo.get("access_token"));
         setAccessToken(acc_token);
-        setTokenDateTime();
-        System.out.println(acc_token);
+        setTokenDateTime();        
 
         return acc_token;
 
