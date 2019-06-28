@@ -48,9 +48,10 @@ public class ScanService extends IntentService {
                     for (FileScanMappingDAO.CustomJoinFileScanMapping mapping : customJoinFileScanMappings) {
 
                         String fileSHA256 = CommonUtils.getSHA256(mapping.filePath);
-
                         HashMap<String, String> params_map = new HashMap<>();
                         HashMap<String, String> fileOrJobId = new HashMap<>();
+                        JSONParser parser = new JSONParser();
+
 
                         if (mapping.scanType.equalsIgnoreCase("quick")) {
                             fileOrJobId.put("sha256", fileSHA256);
@@ -64,62 +65,114 @@ public class ScanService extends IntentService {
                         }
 
                         APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
-
                         HashMap<String, String> report_map = api_wrapper.get_file_report();
-
                         Long reputationScore = null;
-
-                        JSONParser parser = new JSONParser();
+                        boolean hasScanResult = false;
 
 
                         if (mapping.scanType.equalsIgnoreCase("quick")) {
 
                             JSONObject responseJson = (JSONObject) parser.parse(report_map.get(fileSHA256));
                             reputationScore = (Long) responseJson.get("reputationScore");
+                            hasScanResult = true;
 
-                        }
-                        else if(mapping.scanType.equalsIgnoreCase("static")) {
-                            Log.i("report static", report_map.toString());
+                        } else if (mapping.scanType.equalsIgnoreCase("static")) {
 
-                        }
+                            Log.i("report map static",report_map.toString());
+                            String responseStr = (String)report_map.get(mapping.filePath);
+                            JSONObject responseJson = null;
 
-                        /*String detectionType = CommonUtils.getDetectionType(reputationScore);
+                            if(!responseStr.equalsIgnoreCase("NA")) {
+                                responseJson = (JSONObject) parser.parse(responseStr);
 
-                        if (detectionType.equalsIgnoreCase("malware") || detectionType.equalsIgnoreCase("pua")) {
+                                String jobStatus = (String) responseJson.getOrDefault("jobStatus", "ERROR");
 
-                            String detectionId = dbInstance.getDetectionDAO().getDetectionsByFileId(mapping.fileId);
+                                if (jobStatus.trim().equalsIgnoreCase("SUCCESS")) {
+                                    hasScanResult = true;
+                                    try {
+                                        reputationScore = (Long) ((JSONObject) ((JSONObject) responseJson.get("report")).get("reputation")).get("score");
+                                    } catch (Exception e) {
+                                        reputationScore = Long.parseLong("-1");
+                                        hasScanResult = true;
+                                    }
+                                } else if (jobStatus.trim().equalsIgnoreCase("ERROR")) {
+                                    reputationScore = Long.parseLong("-1");
+                                    hasScanResult = true;
+                                }
+                            }
+                            else{
+                                reputationScore = Long.parseLong("-1");
+                                hasScanResult = true;
+                            }
 
-                            Detection detection = new Detection();
+                        } else if (mapping.scanType.equalsIgnoreCase("dynamic")) {
 
-                            detection.setDetection_name(detectionType);
-                            detection.setDetection_type(detectionType);
-                            detection.setFile_id(mapping.fileId);
-                            detection.setRep_score(reputationScore);
-                            detection.setStatus("detected");
-                            detection.setDetection_time(CommonUtils.getCurrentDateTime());
+                            Log.i("report map dynamic",report_map.toString());
+                            String responseStr = (String)report_map.get(mapping.filePath);
+                            JSONObject responseJson = null;
 
-                            if (detectionId == null) {
-                                detection.setDetection_id(CommonUtils.generateUUID());
-                                dbInstance.getDetectionDAO().insert(detection);
-                            } else {
-                                detection.setDetection_id(detectionId);
-                                dbInstance.getDetectionDAO().update(detection);
+                            if(!responseStr.equalsIgnoreCase("NA")) {
+                                responseJson = (JSONObject) parser.parse(responseStr);
+
+                                String jobStatus = (String) responseJson.getOrDefault("jobStatus", "ERROR");
+
+                                if (jobStatus.trim().equalsIgnoreCase("SUCCESS")) {
+                                    hasScanResult = true;
+                                    try {
+                                        reputationScore = (Long) ((JSONObject) responseJson.get("report")).get("score");
+                                    } catch (Exception e) {
+                                        reputationScore = Long.parseLong("-1");
+                                        hasScanResult = true;
+                                    }
+                                } else if (jobStatus.trim().equalsIgnoreCase("ERROR")) {
+                                    reputationScore = Long.parseLong("-1");
+                                    hasScanResult = true;
+                                }
+                            }
+                            else{
+                                reputationScore = Long.parseLong("-1");
+                                hasScanResult = true;
                             }
                         }
 
-                        dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);*/
+                        if (hasScanResult) {
 
+                            String detectionType = CommonUtils.getDetectionType(reputationScore);
+
+                            if (detectionType.equalsIgnoreCase("malware") || detectionType.equalsIgnoreCase("pua")) {
+
+                                String detectionId = dbInstance.getDetectionDAO().getDetectionsByFileId(mapping.fileId);
+
+                                Detection detection = new Detection();
+
+                                detection.setDetection_name(detectionType);
+                                detection.setDetection_type(detectionType);
+                                detection.setFile_id(mapping.fileId);
+                                detection.setRep_score(reputationScore);
+                                detection.setStatus("detected");
+                                detection.setDetection_time(CommonUtils.getCurrentDateTime());
+
+                                if (detectionId == null) {
+                                    detection.setDetection_id(CommonUtils.generateUUID());
+                                    dbInstance.getDetectionDAO().insert(detection);
+                                } else {
+                                    detection.setDetection_id(detectionId);
+                                    dbInstance.getDetectionDAO().update(detection);
+                                }
+
+                                    Log.i("report quick/static/dynamic detection: ",detection.toString());
+                            }
+                            dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
+                        }
                     }
 
-                    // Log.i("report detection: ", dbInstance.getDetectionDAO().getDetections().toString());
+                    Log.i("report detection: ", dbInstance.getDetectionDAO().getDetections().toString());
                     Log.i("report scans: ", dbInstance.getScanDAO().getScanInfo().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-
                 Thread.sleep(Integer.parseInt(getApplication().getResources().getString(R.string.poll_interval)));
-
             }
 
         } catch (Exception e) {

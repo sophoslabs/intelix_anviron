@@ -127,7 +127,7 @@ public class QuickScanFragment extends Fragment {
                 Scan scan = new Scan();
                 String scanId = CommonUtils.generateUUID();
                 scan.setScan_id(scanId);
-                scan.setType("static");
+                scan.setType("dynamic");
                 scan.setIs_file_uploaded(false);
                 scan.setSubmission_time(CommonUtils.getCurrentDateTime());
                 scan.setCompletion_time(null);
