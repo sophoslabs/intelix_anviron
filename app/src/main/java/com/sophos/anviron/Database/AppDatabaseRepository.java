@@ -40,7 +40,7 @@ public class AppDatabaseRepository {
         return scanDAO.getScanInfo();
     }
 
-    public Scan getScanById(Long id) {
+    public Scan getScanById(String id) {
         return scanDAO.getScansById(id);
     }
 

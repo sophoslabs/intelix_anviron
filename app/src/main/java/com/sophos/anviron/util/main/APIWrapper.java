@@ -1,7 +1,6 @@
 package com.sophos.anviron.util.main;
 
 import com.sophos.anviron.MainActivity;
-import com.sophos.anviron.R;
 
 import java.util.HashMap;
 

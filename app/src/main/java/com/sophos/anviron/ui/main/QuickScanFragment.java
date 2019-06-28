@@ -109,7 +109,6 @@ public class QuickScanFragment extends Fragment {
                 scan.setIs_file_uploaded(false);
                 scan.setSubmission_time(CommonUtils.getCurrentDateTime());
                 scan.setCompletion_time(null);
-                scan.setStatus("in progress");
                 dbInstance.getScanDAO().insert(scan);
 
                 for (File file : filesToScan) {

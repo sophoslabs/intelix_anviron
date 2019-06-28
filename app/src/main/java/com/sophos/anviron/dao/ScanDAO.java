@@ -10,5 +10,5 @@ public interface ScanDAO extends BaseDAO<Scan> {
     public List<Scan> getScanInfo();
 
     @Query("Select * FROM scan WHERE scan_id = :id")
-    public Scan getScansById(Long id);
+    public Scan getScansById(String id);
 }

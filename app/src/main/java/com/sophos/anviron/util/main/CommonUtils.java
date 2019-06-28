@@ -1,9 +1,7 @@
 package com.sophos.anviron.util.main;
 
-import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
@@ -12,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
+
 
 public class CommonUtils {
 
@@ -24,6 +23,7 @@ public class CommonUtils {
                     allFiles.add(file);
                 }
             }
+
         return allFiles;
     }
 
@@ -62,5 +62,15 @@ public class CommonUtils {
         return sdf.format(Calendar.getInstance().getTime());
     }
 
-
+    public static String getDetectionType(Long reputationScore){
+        if (reputationScore>=0 && reputationScore<=19)
+            return "MALWARE";
+        else if(reputationScore>=20 && reputationScore<=29)
+            return "PUA";
+        else if (reputationScore>=30 && reputationScore<=69)
+            return "UNKNOWN";
+        else if (reputationScore>=70 && reputationScore<=100)
+            return "CLEAN";
+        else return "INVALID";
+    }
 }

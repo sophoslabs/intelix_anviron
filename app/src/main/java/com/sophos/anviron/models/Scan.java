@@ -15,7 +15,6 @@ public class Scan {
     private Boolean is_file_uploaded;
     private String submission_time;
     private String completion_time;
-    private String status;
 
     @NonNull
     public String getScan_id() {
@@ -58,20 +57,12 @@ public class Scan {
         this.completion_time = completion_time;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String toString() {
+        super.toString();
         String str = "Scan id: " + this.scan_id
                 + " Scan type: " + this.type
                 + " Submission time: " + this.submission_time
-                + " Completion Time: " + this.completion_time
-                + " Status " + this.status;
+                + " Completion Time: " + this.completion_time;
         return str;
     }
 }

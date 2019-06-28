@@ -8,6 +8,7 @@ public class FileScanMapping {
     @PrimaryKey(autoGenerate = true)
     @NonNull private Long id;
     @NonNull private String file_id;
+    @NonNull private String scan_id;
     @NonNull private String status;
 
     @NonNull
@@ -46,6 +47,12 @@ public class FileScanMapping {
         this.scan_id = scan_id;
     }
 
-    @NonNull private String scan_id;
-
+    @Override
+    public String toString() {
+        String str = "scan id: " + this.scan_id
+                + " id: " + this.id
+                + " file id: " + this.file_id
+                + " status: " + this.status;
+        return str;
+    }
 }

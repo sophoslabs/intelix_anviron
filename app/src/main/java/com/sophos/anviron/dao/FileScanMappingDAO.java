@@ -1,13 +1,9 @@
 package com.sophos.anviron.dao;
+
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
-
-import java.util.HashMap;
 import java.util.List;
-
-import com.sophos.anviron.models.File;
 import com.sophos.anviron.models.FileScanMapping;
-
 
 @Dao
 public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
@@ -26,4 +22,8 @@ public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
 
     @Query("SELECT f.file_id as fileId, f.file_path as filePath, m.scan_id as scanId from file f JOIN file_scan_mapping m on f.file_id = m.file_id WHERE m.status = :status")
     public List<CustomJoinFileScanMapping> getFilesByStatus(String status);
+
+    @Query("UPDATE file_scan_mapping SET status = :status WHERE scan_id = :scan_id and file_id = :file_id")
+    int updateStatus(String status, String scan_id, String file_id);
+
 }

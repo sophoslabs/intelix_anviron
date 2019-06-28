@@ -11,8 +11,17 @@ public class Detection {
     @NonNull private String detection_id;
     @NonNull private String file_id;
     private String detection_name;
-    private Integer rep_score;
+    private String detection_type;
+    private Long rep_score;
     private String detection_time;
+
+    public String getDetection_type() {
+        return detection_type;
+    }
+
+    public void setDetection_type(String detection_type) {
+        this.detection_type = detection_type;
+    }
 
     public String getDetection_name() {
         return detection_name;
@@ -22,11 +31,11 @@ public class Detection {
         this.detection_name = detection_name;
     }
 
-    public Integer getRep_score() {
+    public Long getRep_score() {
         return rep_score;
     }
 
-    public void setRep_score(Integer rep_score) {
+    public void setRep_score(Long rep_score) {
         this.rep_score = rep_score;
     }
 
@@ -54,5 +63,15 @@ public class Detection {
 
     public void setFile_id(@NonNull String file_id) {
         this.file_id = file_id;
+    }
+
+    public String toString(){
+        return "detection id: "+detection_id
+                + " detection name: "+detection_name
+                + " file id: "+file_id
+                + " rep score: "+rep_score
+                + " detection type: " + detection_type
+                + " detection time: " + detection_time;
+
     }
 }

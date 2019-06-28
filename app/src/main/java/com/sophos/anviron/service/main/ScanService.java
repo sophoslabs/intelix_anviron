@@ -1,31 +1,18 @@
 package com.sophos.anviron.service.main;
 
 import android.app.IntentService;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-
 import com.sophos.anviron.R;
 import com.sophos.anviron.dao.FileScanMappingDAO;
-import com.sophos.anviron.models.File;
-import com.sophos.anviron.models.FileScanMapping;
-import com.sophos.anviron.models.Scan;
+import com.sophos.anviron.models.Detection;
 import com.sophos.anviron.util.main.APIWrapper;
 import com.sophos.anviron.util.main.CommonUtils;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public class ScanService extends IntentService {
 
@@ -62,18 +49,34 @@ public class ScanService extends IntentService {
                         fileOrJobId.put("sha256", fileSHA256);
                         APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
                         HashMap<String, String> report_map = api_wrapper.get_file_report();
-                        Log.i("reportfile",mapping.fileId);
-                        Log.i("reportscan",mapping.scanId);
-                        Log.i("reportpath",mapping.filePath);
-                        Log.i("report",report_map.get(fileSHA256));
 
+                        JSONParser parser = new JSONParser();
+                        JSONObject responseJson = (JSONObject) parser.parse(report_map.get(fileSHA256));
+                        Long reputationScore = (Long)responseJson.get("reputationScore");
 
-                        dbInstance.getMappingDAO().update();
+                        String detectionType = CommonUtils.getDetectionType(reputationScore);
+
+                        if (detectionType.equalsIgnoreCase("MALWARE") || detectionType.equalsIgnoreCase("PUA")) {
+                            Detection detection = new Detection();
+                            detection.setDetection_id(CommonUtils.generateUUID());
+                            detection.setDetection_name(detectionType);
+                            detection.setDetection_type(detectionType);
+                            detection.setFile_id(mapping.fileId);
+                            detection.setRep_score(reputationScore);
+                            detection.setDetection_time(CommonUtils.getCurrentDateTime());
+                            dbInstance.getDetectionDAO().insert(detection);
+                        }
+
+                        dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
 
                     }
+
+                    Log.i("report detection: ", dbInstance.getDetectionDAO().getDetections().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
 
                 Thread.sleep(Integer.parseInt(getApplication().getResources().getString(R.string.poll_interval)));
 
@@ -83,4 +86,5 @@ public class ScanService extends IntentService {
             Log.e("ScanService", e.toString());
         }
     }
+
 }
