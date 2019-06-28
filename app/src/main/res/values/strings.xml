@@ -2,6 +2,6 @@
     <string name="app_name">AnViron</string>
     <string name="tab_text_1">Quick Scan</string>
     <string name="tab_text_2">Deep Scan</string>
-    <string name="dialog_title_pick_file"> Select folders/files to scan</string>
     <string name="poll_interval">10000</string>
+    <string name="scan_id">scan id</string>
 </resources>
