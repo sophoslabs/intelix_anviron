@@ -31,5 +31,8 @@
     <style name="AppBar.SubTitle.Theme" parent="@style/TextAppearance.AppCompat.Small">
         <item name="android:textSize">10sp</item>
     </style>
+    <style name="NavigationView" >
+        <item name="fontFamily">@font/nasa</item>
+    </style>
 
 </resources>
