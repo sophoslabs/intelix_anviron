@@ -13,6 +13,7 @@ public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
         public String fileId;
         public String filePath;
         public String scanId;
+        public String scanType;
     }
 
     @Query("SELECT * FROM file_scan_mapping")
@@ -21,7 +22,7 @@ public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
     @Query("Select * FROM file_scan_mapping WHERE scan_id = :scan_id AND file_id = :file_id")
     public List<FileScanMapping> getDetectionsById(Long scan_id, Long file_id);
 
-    @Query("SELECT f.file_id as fileId, f.file_path as filePath, m.scan_id as scanId from file f JOIN file_scan_mapping m on f.file_id = m.file_id WHERE m.status = :status")
+    @Query("SELECT f.file_id as fileId, f.file_path as filePath, m.scan_id as scanId, s.type as scanType from file f JOIN file_scan_mapping m on f.file_id = m.file_id JOIN scan s on s.scan_id = m.scan_id WHERE m.status = :status")
     public List<CustomJoinFileScanMapping> getFilesByStatus(String status);
 
     @Query("UPDATE file_scan_mapping SET status = :status WHERE scan_id = :scan_id and file_id = :file_id")

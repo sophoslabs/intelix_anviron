@@ -24,8 +24,9 @@ public class ScanService extends IntentService {
      */
 
     private static String apiURI = "https://de.api.labs.sophos.com";
-    private static String apiEndpoint = "lookup/files/v1";
+    private static String apiEndpoint = null;
     private static String corelationId = null;
+
 
     public ScanService() {
         super("ScanService");
@@ -47,17 +48,42 @@ public class ScanService extends IntentService {
                     for (FileScanMappingDAO.CustomJoinFileScanMapping mapping : customJoinFileScanMappings) {
 
                         String fileSHA256 = CommonUtils.getSHA256(mapping.filePath);
+
                         HashMap<String, String> params_map = new HashMap<>();
                         HashMap<String, String> fileOrJobId = new HashMap<>();
-                        fileOrJobId.put("sha256", fileSHA256);
+
+                        if (mapping.scanType.equalsIgnoreCase("quick")) {
+                            fileOrJobId.put("sha256", fileSHA256);
+                            apiEndpoint = "lookup/files/v1";
+                        } else if (mapping.scanType.equalsIgnoreCase("static")) {
+                            fileOrJobId.put("file", mapping.filePath);
+                            apiEndpoint = "analysis/file/static/v1";
+                        } else if (mapping.scanType.equalsIgnoreCase("dynamic")) {
+                            fileOrJobId.put("file", mapping.filePath);
+                            apiEndpoint = "analysis/file/dynamic/v1";
+                        }
+
                         APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
+
                         HashMap<String, String> report_map = api_wrapper.get_file_report();
 
-                        JSONParser parser = new JSONParser();
-                        JSONObject responseJson = (JSONObject) parser.parse(report_map.get(fileSHA256));
-                        Long reputationScore = (Long) responseJson.get("reputationScore");
+                        Long reputationScore = null;
 
-                        String detectionType = CommonUtils.getDetectionType(reputationScore);
+                        JSONParser parser = new JSONParser();
+
+
+                        if (mapping.scanType.equalsIgnoreCase("quick")) {
+
+                            JSONObject responseJson = (JSONObject) parser.parse(report_map.get(fileSHA256));
+                            reputationScore = (Long) responseJson.get("reputationScore");
+
+                        }
+                        else if(mapping.scanType.equalsIgnoreCase("static")) {
+                            Log.i("report static", report_map.toString());
+
+                        }
+
+                        /*String detectionType = CommonUtils.getDetectionType(reputationScore);
 
                         if (detectionType.equalsIgnoreCase("malware") || detectionType.equalsIgnoreCase("pua")) {
 
@@ -72,7 +98,7 @@ public class ScanService extends IntentService {
                             detection.setStatus("detected");
                             detection.setDetection_time(CommonUtils.getCurrentDateTime());
 
-                            if (detectionId==null) {
+                            if (detectionId == null) {
                                 detection.setDetection_id(CommonUtils.generateUUID());
                                 dbInstance.getDetectionDAO().insert(detection);
                             } else {
@@ -81,11 +107,11 @@ public class ScanService extends IntentService {
                             }
                         }
 
-                        dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
+                        dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);*/
 
                     }
 
-                    Log.i("report detection: ", dbInstance.getDetectionDAO().getDetections().toString());
+                    // Log.i("report detection: ", dbInstance.getDetectionDAO().getDetections().toString());
                     Log.i("report scans: ", dbInstance.getScanDAO().getScanInfo().toString());
                 } catch (Exception e) {
                     e.printStackTrace();

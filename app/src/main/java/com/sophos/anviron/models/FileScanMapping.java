@@ -10,6 +10,16 @@ public class FileScanMapping {
     @NonNull private String file_id;
     @NonNull private String scan_id;
     @NonNull private String status;
+    @NonNull private String job_id;
+
+    @NonNull
+    public String getJob_id() {
+        return job_id;
+    }
+
+    public void setJob_id(@NonNull String job_id) {
+        this.job_id = job_id;
+    }
 
     @NonNull
     public String getStatus() {
