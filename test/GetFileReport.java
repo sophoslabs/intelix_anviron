@@ -13,8 +13,6 @@ import java.io.FileReader;
 import java.net.Proxy;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*; 
 import java.io.File;
 import java.nio.file.Files;
 import java.io.FileInputStream;
