@@ -121,14 +121,12 @@ public class QuickScanFragment extends Fragment {
                 }
                 Log.i("files", filesToScan.toString());
 
-
                 DatabaseService dbInstance = DatabaseService.getInstance(getActivity().getApplication().getApplicationContext());
-
 
                 Scan scan = new Scan();
                 String scanId = CommonUtils.generateUUID();
                 scan.setScan_id(scanId);
-                scan.setType("quick");
+                scan.setType("dynamic");
                 scan.setIs_file_uploaded(false);
                 scan.setSubmission_time(CommonUtils.getCurrentDateTime());
                 scan.setCompletion_time(null);
@@ -151,6 +149,7 @@ public class QuickScanFragment extends Fragment {
                     fileScanMapping.setFile_id(fileId);
                     fileScanMapping.setScan_id(scanId);
                     fileScanMapping.setStatus("in progress");
+                    fileScanMapping.setJob_id("");
 
                     dbInstance.getMappingDAO().insert(fileScanMapping);
 

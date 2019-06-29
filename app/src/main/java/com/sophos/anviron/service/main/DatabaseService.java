@@ -31,7 +31,4 @@ public abstract class DatabaseService extends RoomDatabase {
         }
         return mInstance;
     }
-
-
-
 }

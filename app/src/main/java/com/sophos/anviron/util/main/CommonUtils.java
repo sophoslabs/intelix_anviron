@@ -62,6 +62,11 @@ public class CommonUtils {
         return sdf.format(Calendar.getInstance().getTime());
     }
 
+    public static String getFileNameFromFilePath(String filePath){
+        String[] fileSubPaths = filePath.split("/");
+        return fileSubPaths[fileSubPaths.length-1];
+    }
+
     public static String getDetectionType(Long reputationScore){
         if (reputationScore>=0 && reputationScore<=19)
             return "malware";
