@@ -81,6 +81,7 @@ public class QuickScanFragment extends Fragment {
                 /*Toast.makeText(getContext().getApplicationContext(), R.string.app_name, Toast.LENGTH_LONG).show();*/
                 Intent i = new Intent(getActivity().getApplication().getApplicationContext(), FileChooser.class);
                 i.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.MULTIPLE_SELECTION.ordinal());
+                // i.putExtra(Constants.INITIAL_DIRECTORY, rootPath);
                 startActivityForResult(i, 9999);
             }
         });
