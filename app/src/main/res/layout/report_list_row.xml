@@ -6,78 +6,85 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/row_padding_vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">
+    android:paddingBottom="@dimen/row_padding_vertical">
+
+
     <android.support.v7.widget.CardView
         android:layout_width="375dp"
         android:layout_height="120dp">
+
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/rowScanId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:text="@string/scan_id"
                 android:textColor="@color/title"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="@string/scan_id"/>
+                android:visibility="gone"
+                 />
+
             <TextView
                 android:id="@+id/rowTotalFiles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="Total Files"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:id="@+id/isFileUploadedcheckBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:text="Is file uploaded" />
+                android:text="Total Files" />
 
-                <TextView
-                    android:id="@+id/rowScanType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="scan type"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/rowSubmissionTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:textColor="@color/year"
-                    android:text="submission time"/>
+            <TextView
+                android:id="@+id/isFileUploaded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:text="Files Sent Remotely?" />
 
-                <TextView
-                    android:id="@+id/rowCompletionTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end|center_vertical"
-                    android:textColor="@color/year"
-                    android:text="completion time"/>
-            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rowScanType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="scan type"
+                />
+
+
+            <TextView
+                android:id="@+id/rowSubmissionTime"
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="submission time"
+                android:textColor="@color/year" />
+
+
+
+            <TextView
+                android:id="@+id/rowCompletionTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                android:text="completion time"
+                android:textColor="@color/year" />
+
             <TextView
                 android:id="@+id/rowScanStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/year"
-                android:text="scan status"/>
+                android:text="scan status"
+                android:textColor="@color/year" />
+
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
-
-
 
 </RelativeLayout>

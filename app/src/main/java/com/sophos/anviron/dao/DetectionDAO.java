@@ -13,7 +13,7 @@ import com.sophos.anviron.models.Detection;
 public interface DetectionDAO extends BaseDAO<Detection> {
 
 
-    class FileDetectionMapping {
+    static class FileDetectionMapping {
 
         public String fileId;
         public String filePath;
@@ -22,16 +22,6 @@ public interface DetectionDAO extends BaseDAO<Detection> {
         public String detectionName;
         public String detectionTime;
         public String detectionStatus;
-
-        public FileDetectionMapping(String fileId, String filePath, String detectionId, String detectionType, String detectionName, String detectionTime, String detectionStatus){
-            this.fileId = fileId;
-            this.filePath = filePath;
-            this.detectionId = detectionId;
-            this.detectionType = detectionType;
-            this.detectionName = detectionName;
-            this.detectionTime = detectionTime;
-            this.detectionStatus = detectionStatus;
-        }
     }
 
 

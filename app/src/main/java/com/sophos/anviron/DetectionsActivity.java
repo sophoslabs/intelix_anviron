@@ -47,14 +47,16 @@ public class DetectionsActivity extends AppCompatActivity implements BottomNavig
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(detectionsAdaptor);
         prepareFileDetectionData(this);
+
+        //Stuffs related to bottom navigation view
         setNavigationViewListener();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        menu.findItem(R.id.navigation_detections).setChecked(true);
     }
 
 
     private void prepareFileDetectionData(DetectionsActivity activity) {
-
-        // Somehow we need to add this dummy header which is hide behind the view area perhaps behind the header (or are values for header place holders)
-        fileDetectionMappingsList.add(new DetectionDAO.FileDetectionMapping("fileId", "filePath","detectionId", "detectionType", "detectionName", "detectionTime", "detectionStatus"));
 
         DetectionViewModel detectionViewModel = ViewModelProviders.of( (DetectionsActivity)activity).get(DetectionViewModel.class);
 
@@ -62,17 +64,10 @@ public class DetectionsActivity extends AppCompatActivity implements BottomNavig
             @Override
             public void onChanged(@Nullable List<DetectionDAO.FileDetectionMapping> fileDetectionMappings) {
 
-                for (DetectionDAO.FileDetectionMapping fileDetectionMapping:fileDetectionMappings){
+                fileDetectionMappingsList.clear();
 
-                    boolean fileDetectionMappingDuplicate = false;
-                    for (DetectionDAO.FileDetectionMapping fileDetectionMapping1:fileDetectionMappingsList) {
-                        if (fileDetectionMapping.detectionId.equalsIgnoreCase(fileDetectionMapping1.detectionId))
-                            fileDetectionMappingDuplicate = true;
-                    }
+                fileDetectionMappingsList.addAll(fileDetectionMappings);
 
-                    if(fileDetectionMappingDuplicate==false)
-                        fileDetectionMappingsList.add(fileDetectionMapping);
-                }
                 detectionsAdaptor.notifyDataSetChanged();
             }
         });
