@@ -41,8 +41,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         else{
             holder.isFileUploaded.setText("No files sent for remote analysis");
         }
-        holder.rowSubmissionTime.setText("Submission Time: "+scanReport.submission_time);
-        holder.rowCompletionTime.setText("Completion Time: "+scanReport.completion_time);
+        holder.rowSubmissionTime.setText("Submission: "+scanReport.submission_time);
+        holder.rowCompletionTime.setText("Completion: "+scanReport.completion_time);
 //        holder.rowStatus.setText("Scan Type:" +scanReport.status);
         holder.rowTotalFiles.setText("Total Files Scanned: "+scanReport.total_files.toString());
         holder.rowScanType.setText("Scan Type: "+scanReport.scan_type);
