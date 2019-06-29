@@ -28,4 +28,10 @@ public class File {
     public void setFile_path(@NonNull String file_path) {
         this.file_path = file_path;
     }
+
+    public String toString()
+    {
+        return "file_id: "+file_id +
+                " file_path: "+file_path;
+    }
 }
