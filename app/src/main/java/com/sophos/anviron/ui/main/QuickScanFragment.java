@@ -34,42 +34,28 @@ import at.markushi.ui.CircleButton;
  */
 public class QuickScanFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    //    private PageViewModel pageViewModel;
     private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
     ArrayList<File> filesToScan = null;
 
     public static QuickScanFragment newInstance(int index) {
         QuickScanFragment fragment = new QuickScanFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
-        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-//        pageViewModel.setIndex(index);
     }
-
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-//        int current_page_index = pageViewModel.getMIndex();
-//        Log.i("current_page_index:", Integer.toString(current_page_index));
 
         final View root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
 
-        ImageButton infoButton = (ImageButton)  root.findViewById(R.id.infoBtn);
+        ImageButton infoButton = (ImageButton) root.findViewById(R.id.infoBtn);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +65,7 @@ public class QuickScanFragment extends Fragment {
                 alertDialogBuilder.setTitle(R.string.tab_text_1);
                 alertDialogBuilder.setMessage(R.string.quick_description).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
                     }
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
@@ -107,6 +94,7 @@ public class QuickScanFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
+        //see request code for deep scan
         if (requestCode == 9999 && data != null) {
             if (resultCode == -1) {
                 ArrayList<Uri> selectedFiles = data.getParcelableArrayListExtra(Constants.SELECTED_ITEMS);
@@ -126,7 +114,7 @@ public class QuickScanFragment extends Fragment {
                 Scan scan = new Scan();
                 String scanId = CommonUtils.generateUUID();
                 scan.setScan_id(scanId);
-                scan.setType("dynamic");
+                scan.setType("quick");
                 scan.setIs_file_uploaded(false);
                 scan.setSubmission_time(CommonUtils.getCurrentDateTime());
                 scan.setCompletion_time(null);
@@ -149,17 +137,12 @@ public class QuickScanFragment extends Fragment {
                     fileScanMapping.setFile_id(fileId);
                     fileScanMapping.setScan_id(scanId);
                     fileScanMapping.setStatus("in progress");
-                    fileScanMapping.setJob_id("");
 
                     dbInstance.getMappingDAO().insert(fileScanMapping);
 
                 }
             }
         }
-
-//        TestService scanService = new TestService(filesToScan);
-//        scanService.scanFiles();
-
     }
 
 }
