@@ -2,8 +2,8 @@
     <string name="app_name">AnViron</string>
     <string name="tab_text_1">Quick Scan</string>
     <string name="tab_text_2">Deep Scan</string>
-    <string name="quick_description">Takes less than 5 seconds/file. Files are not submitted to our servers.</string>
-    <string name="deep_description"><b>Static Mode -</b> Takes about 30 sec for a file to be analyzed by few of our servers.\n \n<b>Dynamic Mode -</b> Takes about 5 min for a file to be analyzed by all of our servers.</string>
+    <string name="quick_description">Takes less than 5 sec/file. Files are not submitted to our servers.\nCost: 0.002$/file</string>
+    <string name="deep_description"><b>Static Mode -</b> Takes about 30 sec for a file to be analyzed by few of our servers.\nCost: 0.02$/file \n \n<b>Dynamic Mode -</b> Takes about 5 min for a file to be analyzed by all of our servers.\nCost: 0.04$/file</string>
     <string name="send_checkbox"> Send file(s) for remote analysis</string>
     <string name="select_file_button"> Select folders/files</string>
     <string name="full_scan_button"> Full scan</string>
