@@ -1,4 +1,5 @@
 package com.sophos.anviron.dao;
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 import java.util.List;
@@ -16,4 +17,6 @@ public interface FileDAO extends BaseDAO<File> {
     @Query("Select file_id FROM file WHERE file_path=:filePath")
     public String getFileIdByFilePath(String filePath);
 
+    @Query("Select count(f.file_id) from file f join file_scan_mapping m on f.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanTypes")
+    public Integer getTotalFilesByScanType(String scanTypes);
 }

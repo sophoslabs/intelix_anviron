@@ -44,7 +44,7 @@
                 android:src="@drawable/file"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/totFileTxt"
+                android:id="@+id/txtTotalScannedFilesDeep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -83,7 +83,7 @@
                 android:src="@drawable/detection"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/totdetectTxt"
+                android:id="@+id/txtTotalDetectionsDeep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

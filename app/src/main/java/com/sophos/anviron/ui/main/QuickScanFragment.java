@@ -1,6 +1,8 @@
 package com.sophos.anviron.ui.main;
 
 import android.app.AlertDialog;
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,10 +17,12 @@ import android.widget.Button;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
+import com.sophos.anviron.database.DatabaseRepository;
 import com.sophos.anviron.models.FileScanMapping;
 import com.sophos.anviron.models.Scan;
 import com.sophos.anviron.service.main.DatabaseService;
@@ -54,7 +58,7 @@ public class QuickScanFragment extends Fragment {
 
 
         final View root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
-
+        DatabaseRepository repository = new DatabaseRepository(getActivity().getApplication());
         ImageButton infoButton = (ImageButton) root.findViewById(R.id.infoBtn);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +88,12 @@ public class QuickScanFragment extends Fragment {
                 startActivityForResult(i, 9999);
             }
         });
+
+        TextView txtTotalScannedFiles = root.findViewById(R.id.txtTotalScannedFilesQuick);
+        txtTotalScannedFiles.setText(repository.getTotalScannedFilesQuick().toString());
+
+        TextView txtTotalDetections = root.findViewById(R.id.txtTotalDetectionsQuick);
+        txtTotalDetections.setText(repository.getTotalDetectionsQuick().toString());
         return root;
     }
 

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
 import com.sophos.anviron.R;
+import com.sophos.anviron.database.DatabaseRepository;
 import com.sophos.anviron.models.FileScanMapping;
 import com.sophos.anviron.models.Scan;
 import com.sophos.anviron.service.main.DatabaseService;
@@ -61,7 +62,7 @@ public class DeepScanFragment extends Fragment {
             Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.deep_scan_fragment, container, false);
-
+        DatabaseRepository repository = new DatabaseRepository(getActivity().getApplication());
         ImageButton infoButton = (ImageButton)  root.findViewById(R.id.infoBtn2);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +105,11 @@ public class DeepScanFragment extends Fragment {
         RadioButton radioButtonStatic = root.findViewById(R.id.radioBtnStatic);
         radioButtonStatic.setChecked(true);
 
+        TextView txtTotalScannedFiles = root.findViewById(R.id.txtTotalScannedFilesDeep);
+        txtTotalScannedFiles.setText(repository.getTotalScannedFilesDeep().toString());
+
+        TextView txtTotalDetections = root.findViewById(R.id.txtTotalDetectionsDeep);
+        txtTotalDetections.setText(repository.getTotalDetectionsDeep().toString());
 
         return root;
     }
