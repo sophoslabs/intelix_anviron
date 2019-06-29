@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import com.sophos.anviron.models.Scan;
 import com.sophos.anviron.service.main.DatabaseService;
@@ -41,7 +42,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         //View v = LayoutInflater.from(this).inflate(R.layout.quick_scan_fragment, null);
         // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
+
+        //Stuffs related to bottom navigation view
         setNavigationViewListener();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        menu.findItem(R.id.navigation_scans).setChecked(true);
 
         api_client = getString(R.string.client);
         api_secret = getString(R.string.secret);
