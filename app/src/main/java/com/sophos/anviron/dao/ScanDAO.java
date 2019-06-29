@@ -27,18 +27,12 @@ public interface ScanDAO extends BaseDAO<Scan> {
             "s.is_file_uploaded as is_file_uploaded," +
             "s.submission_time as submission_time," +
             "s.completion_time as completion_time," +
-            "sub1.total_files as total_files," +
-            "sub2.in_progress_files as total_remaining_files,"+
-            "case when sub2.in_progress_files>0 then 'in progress' else 'completed' end as scan_status "+
+            "sub.total_files as total_files " +
             "FROM scan s," +
             "(SELECT m.scan_id as scan_id, count(m.file_id) as total_files " +
             "FROM file_scan_mapping m " +
-            "GROUP BY scan_id) as sub1, " +
-            "(SELECT m.scan_id as scan_id, count(m.file_id) as in_progress_files " +
-            "FROM file_scan_mapping m WHERE m.status='in progress' " +
-            "GROUP BY scan_id) as sub2 " +
-            "WHERE sub1.scan_id = s.scan_id "+
-            "AND sub2.scan_id = s.scan_id"
+            "GROUP BY scan_id) as sub " +
+            "WHERE sub.scan_id = s.scan_id"
     )
     public LiveData<List<ScanReport>> getScanReport();
 
