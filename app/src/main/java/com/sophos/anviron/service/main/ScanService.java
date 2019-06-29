@@ -81,9 +81,17 @@ public class ScanService extends IntentService {
                             if (mapping.scanType.equalsIgnoreCase("quick")) {
 
                                 Log.i("report_map_quick", report_map.toString());
-                                JSONObject responseJson = (JSONObject) parser.parse(report_map.get(fileSHA256));
-                                reputationScore = (Long) responseJson.get("reputationScore");
+
+                                String response = report_map.get(fileSHA256);
+                                reputationScore = Long.parseLong("-1");
+
+                                if (!response.equalsIgnoreCase("NA")){
+                                    JSONObject responseJson = (JSONObject) parser.parse(response);
+                                    reputationScore = (Long) responseJson.get("reputationScore");
+                                }
+
                                 hasScanResult = true;
+
 
                             } else if (mapping.scanType.equalsIgnoreCase("static")) {
 
