@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -45,27 +47,27 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(reportAdapter);
         prepareFileDetectionData(this);
+
+
+        //Stuff related to bottom navigation view
         setNavigationViewListener();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        menu.findItem(R.id.navigation_reports).setChecked(true);
     }
 
     private void prepareFileDetectionData(ReportsActivity activity) {
-
-        // Somehow we need to add this dummy header which is hide behind the view area perhaps behind the header (or are values for header place holders)
-        scanReportList.add(
-                new ScanDAO.ScanReport("scan_id",
-                                        "type",
-                        false,
-                        "submission_time",
-                        "completion_time", 0,
-                        "status"));
 
         ReportViewModel reportViewModel = ViewModelProviders.of( (ReportsActivity)activity).get(ReportViewModel.class);
 
         reportViewModel.getScanReport().observe(this, new android.arch.lifecycle.Observer<List<ScanDAO.ScanReport>>() {
             @Override
             public void onChanged(@Nullable List<ScanDAO.ScanReport> scanReports) {
+
                 scanReportList.clear();
+
                 scanReportList.addAll(scanReports);
+
                 reportAdapter.notifyDataSetChanged();
             }
         });

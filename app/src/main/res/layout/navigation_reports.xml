@@ -15,23 +15,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_title_action_bar_height"
-            app:title="@string/app_name"
             app:subtitle="Powered by Intelix"
             app:subtitleTextAppearance="@style/AppBar.SubTitle.Theme"
-            app:titleTextAppearance="@style/AppBar.Title.Theme"/>
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/AppBar.Title.Theme" />
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/report_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/report_recycle_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:paddingVertical="50sp"
+        android:scrollbars="vertical" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"

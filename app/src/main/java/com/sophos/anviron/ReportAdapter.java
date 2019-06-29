@@ -35,12 +35,17 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final ScanDAO.ScanReport scanReport = scanReports.get(position);
         holder.rowScanId.setText(scanReport.scan_id);
-        holder.isFileUploaded.setChecked(scanReport.is_file_uploaded);
-        holder.isFileUploaded.setEnabled(false);
-        holder.isFileUploaded.setText(new String("Files uploaded:"));
-        holder.rowSubmissionTime.setText(scanReport.submission_time);
-        holder.rowCompletionTime.setText(scanReport.completion_time);
-        holder.rowStatus.setText(scanReport.status);
+        if (scanReport.is_file_uploaded){
+            holder.isFileUploaded.setText("Files sent for remote analysis");
+        }
+        else{
+            holder.isFileUploaded.setText("No files sent for remote analysis");
+        }
+        holder.rowSubmissionTime.setText("Submission Time: "+scanReport.submission_time);
+        holder.rowCompletionTime.setText("Completion Time: "+scanReport.completion_time);
+//        holder.rowStatus.setText("Scan Type:" +scanReport.status);
+        holder.rowTotalFiles.setText("Total Files Scanned: "+scanReport.total_files.toString());
+        holder.rowScanType.setText("Scan Type: "+scanReport.scan_type);
     }
 
     @Override
@@ -50,13 +55,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView rowScanId, rowSubmissionTime, rowCompletionTime, rowStatus, rowScanType, rowTotalFiles;
-        public AppCompatCheckBox isFileUploaded;
+        public TextView rowScanId, rowSubmissionTime, rowCompletionTime, rowStatus, rowScanType, rowTotalFiles, isFileUploaded;
 
-        public MyViewHolder(View view) {
+public MyViewHolder(View view) {
             super(view);
             rowScanId = view.findViewById(R.id.rowScanId);
-            isFileUploaded = view.findViewById(R.id.isFileUploadedcheckBox);
+            isFileUploaded = view.findViewById(R.id.isFileUploaded);
             rowSubmissionTime = view.findViewById(R.id.rowSubmissionTime);
             rowCompletionTime = view.findViewById(R.id.rowCompletionTime);
             rowStatus = view.findViewById(R.id.rowScanStatus);

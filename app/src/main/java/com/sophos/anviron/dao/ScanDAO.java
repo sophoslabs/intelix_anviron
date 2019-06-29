@@ -8,43 +8,28 @@ import com.sophos.anviron.models.Scan;
 @Dao
 public interface ScanDAO extends BaseDAO<Scan> {
 
-    class ScanReport {
+    static class ScanReport {
         public String scan_id;
-        public String type;
+        public String scan_type;
         public Boolean is_file_uploaded;
         public String submission_time;
         public String completion_time;
-        public Integer total_files;
-        public String status;
-
-        public ScanReport(String scan_id, String type, Boolean is_file_uploaded, String submission_time, String completion_time, Integer total_files, String status) {
-            this.scan_id = scan_id;
-            this.type = type;
-            this.is_file_uploaded = is_file_uploaded;
-            this.submission_time = submission_time;
-            this.completion_time = completion_time;
-            this.total_files = total_files;
-            this.status = status;
-        }
+        public String total_files;
     }
-
 
     @Query("SELECT * FROM scan")
     public List<Scan> getScanInfo();
 
-    @Query("Select s.scan_id as scan_id, " +
-            "s.type as type, " +
-            "s.is_file_uploaded as is_file_uploaded, " +
+    @Query("SELECT s.scan_id as scan_id," +
+            "s.type as scan_type," +
+            "s.is_file_uploaded as is_file_uploaded," +
             "s.submission_time as submission_time," +
             "s.completion_time as completion_time," +
-            "count(m.file_id) as total_files, " +
-            "case when sub.count > 0 then 'in progress' else 'completed' end as status " +
-            "FROM Scan s join file_scan_mapping m on s.scan_id = m.scan_id left join " +
-            "(Select m1.scan_id as scan_id, count(m1.file_id) as count " +
-            "from file_scan_mapping m1 " +
-            "where m1.status = 'in progress' " +
-            "group by m1.scan_id) as sub on sub.scan_id = m.scan_id " +
-            "group by s.scan_id")
+            "sub.total_files as total_files " +
+            "FROM scan s," +
+            "(SELECT m.scan_id as scan_id, count(m.file_id) as total_files " +
+            "FROM file_scan_mapping m " +
+            "GROUP BY scan_id) as sub WHERE sub.scan_id = s.scan_id")
     public LiveData<List<ScanReport>> getScanReport();
 
     @Query("Select * FROM scan WHERE scan_id = :id")
