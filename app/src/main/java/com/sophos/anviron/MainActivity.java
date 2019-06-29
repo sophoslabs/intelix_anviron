@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void setNavigationViewListener() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setItemBackgroundResource(R.drawable.navi_background);
+        bottomNavigationView.setPressed(true);
     }
 
 

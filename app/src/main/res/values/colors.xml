@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#006fe6</color>
+    <color name="colorPrimary">#262626</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#D3D3D3</color>
+    <color name="greyDark">#666666</color>
     <color name="blue">#05c3f9</color>
     <color name="bg">#f0f0f5</color>
     <color name="splash_bg">#FFFBE6</color>
@@ -19,4 +20,12 @@
     <color name="card_bg_color">#f6f6f6</color>
     <color name="title_text_color">#258bd6</color>
     <color name="content_text_color">#999da4</color>
+    <color name="gridColor1">#48CFAD</color>
+    <color name="gridColor1Dark">#37BC9B</color>
+    <color name="gridColor2">#A0D468</color>
+    <color name="gridColor2Dark">#8CC152</color>
+    <color name="gridColor3">#FFCE54</color>
+    <color name="gridColor3Dark">#F68B42</color>
+    <color name="gridColor4">#FC6E51</color>
+    <color name="gridColor4Dark">#E9573F</color>
 </resources>

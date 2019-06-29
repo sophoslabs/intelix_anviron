@@ -31,6 +31,8 @@ public class DetectionsActivity extends AppCompatActivity implements BottomNavig
     private void setNavigationViewListener() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setItemBackgroundResource(R.drawable.navi_background);
+        bottomNavigationView.setPressed(true);
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

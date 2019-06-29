@@ -27,6 +27,8 @@ import com.sophos.anviron.util.main.CommonUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+import at.markushi.ui.CircleButton;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -56,6 +58,7 @@ public class QuickScanFragment extends Fragment {
 //        pageViewModel.setIndex(index);
     }
 
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -66,19 +69,15 @@ public class QuickScanFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
 
-        Button infoButton = (Button)  root.findViewById(R.id.infoBtn);
+        ImageButton infoButton = (ImageButton)  root.findViewById(R.id.infoBtn);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-                alertDialogBuilder.setTitle("Quick Scan:");
-                alertDialogBuilder.setMessage("Use this scan for a quick file(s) lookup by to figure out if its malicious or not." +
-                        "Usually it takes 4-5 sec (per file to complete a lookup).\n" +
-                        "The actual file is not submitted in this scan, " +
-                        "only its checksum is submitted in this scan.\n" +
-                        "A good option to use if file contains of any sensitive information.").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.tab_text_1);
+                alertDialogBuilder.setMessage(R.string.quick_description).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
@@ -87,7 +86,7 @@ public class QuickScanFragment extends Fragment {
             }
         });
 
-        final ImageButton btnSelectFilesOrFolders = root.findViewById(R.id.btnStartscan);
+        final CircleButton btnSelectFilesOrFolders = root.findViewById(R.id.btnQuickScan);
 
         btnSelectFilesOrFolders.setOnClickListener(new View.OnClickListener() {
             @Override

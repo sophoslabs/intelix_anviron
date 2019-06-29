@@ -15,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
 import com.sophos.anviron.R;
+import at.markushi.ui.CircleButton;
 
 
 /**
@@ -68,7 +70,7 @@ public class DeepScanFragment extends Fragment {
 
 
 /*
-        final Button btnSelectFilesOrFolders = root.findViewById(R.id.btnSelectFilesOrFolders);
+        final CircularButton btnSelectFilesOrFolders = root.findViewById(R.id.btnDeepScan);
 
         btnSelectFilesOrFolders.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +84,7 @@ public class DeepScanFragment extends Fragment {
 */
 
         final View root = inflater.inflate(R.layout.deep_scan_fragment, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
+//        final TextView textView = root.findViewById(R.id.section_label);
 
 
 
@@ -94,7 +96,7 @@ public class DeepScanFragment extends Fragment {
 //            }
 //        });
 
-        Button infoButton = (Button)  root.findViewById(R.id.infoBtn2);
+        ImageButton infoButton = (ImageButton)  root.findViewById(R.id.infoBtn2);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +104,8 @@ public class DeepScanFragment extends Fragment {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-                alertDialogBuilder.setTitle("Deep Scan:");
-                alertDialogBuilder.setMessage("").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.tab_text_2);
+                alertDialogBuilder.setMessage(R.string.deep_description).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
