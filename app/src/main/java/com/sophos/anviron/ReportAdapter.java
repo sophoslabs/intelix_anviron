@@ -11,7 +11,9 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.sophos.anviron.dao.ScanDAO;
+import com.sophos.anviron.database.DatabaseRepository;
 import com.sophos.anviron.models.Scan;
+import com.sophos.anviron.service.main.DatabaseService;
 
 import java.util.List;
 
@@ -42,10 +44,15 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             holder.isFileUploaded.setText("No files sent for remote analysis");
         }
         holder.rowSubmissionTime.setText("Submission: "+scanReport.submission_time);
-        holder.rowCompletionTime.setText("Completion: "+scanReport.completion_time);
-//        holder.rowStatus.setText("Scan Type:" +scanReport.status);
+        if (scanReport.completion_time == null) {
+            holder.rowCompletionTime.setText("Completion: - ");
+        }
+        else {
+            holder.rowCompletionTime.setText("Completion: "+scanReport.completion_time);
+        }
         holder.rowTotalFiles.setText("Total Files Scanned: "+scanReport.total_files.toString());
         holder.rowScanType.setText("Scan Type: "+scanReport.scan_type);
+        holder.rowStatus.setText(scanReport.scan_status);
     }
 
     @Override

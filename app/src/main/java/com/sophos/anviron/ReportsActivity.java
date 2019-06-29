@@ -5,24 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sophos.anviron.dao.ScanDAO;
 import com.sophos.anviron.models.ReportViewModel;
-import com.sophos.anviron.ui.main.SectionsPagerAdapter;
+import com.sophos.anviron.service.main.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +49,7 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
         menu.findItem(R.id.navigation_reports).setChecked(true);
     }
 
-    private void prepareFileDetectionData(ReportsActivity activity) {
+    private void prepareFileDetectionData(final ReportsActivity activity) {
 
         ReportViewModel reportViewModel = ViewModelProviders.of( (ReportsActivity)activity).get(ReportViewModel.class);
 
@@ -66,8 +59,11 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
 
                 scanReportList.clear();
 
-                scanReportList.addAll(scanReports);
-
+                for (ScanDAO.ScanReport scanReport:scanReports) {
+                    DatabaseService dbInstance = DatabaseService.getInstance(activity.getApplicationContext());
+                    scanReport.scan_status = dbInstance.getMappingDAO().getScanStatusByScanId(scanReport.scan_id);
+                    scanReportList.add(scanReport);
+                }
                 reportAdapter.notifyDataSetChanged();
             }
         });

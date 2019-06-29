@@ -15,7 +15,6 @@ public interface ScanDAO extends BaseDAO<Scan> {
         public String submission_time;
         public String completion_time;
         public String total_files;
-        public String total_remaining_files;
         public String scan_status;
     }
 
@@ -32,10 +31,14 @@ public interface ScanDAO extends BaseDAO<Scan> {
             "(SELECT m.scan_id as scan_id, count(m.file_id) as total_files " +
             "FROM file_scan_mapping m " +
             "GROUP BY scan_id) as sub " +
-            "WHERE sub.scan_id = s.scan_id"
+            "WHERE sub.scan_id = s.scan_id " +
+            "Order by s.submission_time desc"
     )
     public LiveData<List<ScanReport>> getScanReport();
 
     @Query("Select * FROM scan WHERE scan_id = :id")
     public Scan getScansById(String id);
+
+    @Query("Update scan set completion_time = :completion_time where scan_id = :scan_id")
+    public int updateCompletionTimeByScanId(String completion_time, String scan_id);
 }

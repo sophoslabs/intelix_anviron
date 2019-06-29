@@ -30,22 +30,30 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/rowSubmissionTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="submission time" />
 
-        <TextView
-            android:id="@+id/rowSubmissionTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:text="submission time" />
+            <TextView
+                android:id="@+id/rowScanStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="status" />
 
+        </LinearLayout>
         <TextView
             android:id="@+id/isFileUploaded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layoutDirection="rtl"
             android:text="Files Sent Remotely?" />
-
-
         <TextView
             android:id="@+id/rowTotalFiles"
             android:layout_width="match_parent"
@@ -64,14 +72,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Completion time" />
-
-        <TextView
-            android:id="@+id/rowScanStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="scan status" />
-
     </LinearLayout>
 
 </RelativeLayout>
