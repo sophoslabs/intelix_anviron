@@ -201,31 +201,26 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:text="Select Files" />-->
 
-
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_gravity="center">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
             <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/radioBtn1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="RadioButton" />
-
+                android:text="Fast Mode" />
             <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/radioBtn2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="RadioButton" />
-        </LinearLayout>
+                android:layout_marginLeft="20dp"
+                android:text="Intensive Mode " />
     </RadioGroup>
-
     <at.markushi.ui.CircleButton
         android:id="@+id/btnQuickScan"
         android:layout_width="170dp"
@@ -235,7 +230,6 @@
         android:layout_marginTop="30dp"
         app:cb_color="#00cdac"
         app:cb_pressedRingWidth="16dp"
-        android:src="@drawable/ic_compare_black_24dp"
         android:padding="10dp" />
 
     <TextView
@@ -244,11 +238,13 @@
         android:layout_height="wrap_content"
         android:text="Scan"
         android:fontFamily="serif"
-        android:textSize="20dp"
+        android:textSize="25dp"
+        android:elevation="10dp"
         android:textColor="@color/white"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-100dp"
         android:gravity="center"
-        android:layout_marginLeft="173dp"/>
+        android:textAlignment="center"
+        android:layout_marginLeft="170dp"/>
 
 
 </LinearLayout>

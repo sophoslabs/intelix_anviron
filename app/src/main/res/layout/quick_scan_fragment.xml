@@ -211,10 +211,9 @@
         android:layout_height="170dp"
         android:layout_gravity="center"
         android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         app:cb_color="#00cdac"
         app:cb_pressedRingWidth="16dp"
-        android:src="@drawable/ic_compare_black_24dp"
         android:padding="10dp" />
 
     <TextView
@@ -223,9 +222,10 @@
         android:layout_height="wrap_content"
         android:text="Scan"
         android:fontFamily="serif"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textColor="@color/white"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-100dp"
         android:gravity="center"
-        android:layout_marginLeft="173dp"/>
+        android:elevation="10dp"
+        android:layout_marginLeft="170dp"/>
 </LinearLayout>

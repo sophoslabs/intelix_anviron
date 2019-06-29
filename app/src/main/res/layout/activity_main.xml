@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay"
+            app:tabIndicatorColor="@color/white"
             app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
             />
     </android.support.design.widget.AppBarLayout>
