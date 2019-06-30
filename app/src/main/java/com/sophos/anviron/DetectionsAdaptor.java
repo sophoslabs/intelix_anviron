@@ -35,9 +35,9 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
 
         holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
 
-        holder.rowAnalysisDate.setText(fileDetectionMapping.detectionTime);
+        holder.rowAnalysisDate.setText("Detection Time: "+fileDetectionMapping.detectionTime);
 
-        holder.rowFolderPath.setText("Location: "+CommonUtils.getFolderPathFromFilePath(fileDetectionMapping.filePath));
+        holder.rowFolderPath.setText("File Location : "+CommonUtils.getFolderPathFromFilePath(fileDetectionMapping.filePath));
     }
 
     @Override
