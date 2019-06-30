@@ -13,4 +13,6 @@
     <string name="quick_cost_dollar">0.002</string>
     <string name="static_cost_dollar">0.02</string>
     <string name="dynamic_cost_dollar">0.04</string>
+    <string name="decimal_format_3_precision">#.###</string>
+    <string name="decimal_format_1_precision">#.#</string>
 </resources>

@@ -91,6 +91,9 @@ public class QuickScanFragment extends Fragment {
             }
         });
 
+        DecimalFormat df1 = new DecimalFormat(root.getContext().getString(R.string.decimal_format_1_precision));
+        DecimalFormat df3 = new DecimalFormat(root.getContext().getString(R.string.decimal_format_3_precision));
+
         TextView txtTotalScannedFiles = root.findViewById(R.id.txtTotalScannedFilesQuick);
         txtTotalScannedFiles.setText(repository.getTotalScannedFilesQuick().toString());
 
@@ -98,7 +101,7 @@ public class QuickScanFragment extends Fragment {
         txtTotalDetections.setText(repository.getTotalDetectionsQuick().toString());
 
         TextView txtTotalCost = root.findViewById(R.id.txtTotalCostQuick);
-        txtTotalCost.setText(repository.getTotalCostQuick().toString());
+        txtTotalCost.setText(df3.format(repository.getTotalCostQuick()));
 
         TextView txtScanCoverage = root.findViewById(R.id.txtScanCoverageQuick);
         txtScanCoverage.setText("100 %"); //default we think that scan coverage is 100% until below code updates it with actual value
@@ -119,8 +122,7 @@ public class QuickScanFragment extends Fragment {
             Integer unScannedFiles = CommonUtils.listItemsDiffsCount(allFilesPathsInUserSpace, filesScannedQuickUnique);
             Double scanCoverage = 100.0 - ((unScannedFiles / allFilesInUserSpace.size()) * 100.0);
 
-            DecimalFormat df = new DecimalFormat("#.#");
-            txtScanCoverage.setText(df.format(scanCoverage)+" %");
+            txtScanCoverage.setText(df1.format(scanCoverage)+" %");
         }
         return root;
     }
