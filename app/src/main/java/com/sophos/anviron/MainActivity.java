@@ -28,12 +28,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        DatabaseService db_instance = DatabaseService.getInstance(this.getApplicationContext());
-
-        String scan_info = db_instance.getScanDAO().getScanInfo().toString();
-
-        Log.i("scan_info", scan_info);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

@@ -1,6 +1,5 @@
 package com.sophos.anviron;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sophos.anviron.dao.DetectionDAO;
-import com.sophos.anviron.models.Detection;
 import com.sophos.anviron.util.main.CommonUtils;
 
-import java.io.File;
 import java.util.List;
 
 public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.MyViewHolder>{
@@ -25,7 +22,7 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.detections_list_row, parent, false);
+                .inflate(R.layout.navigation_detection_list_row, parent, false);
         return new MyViewHolder(itemView);
     }
 

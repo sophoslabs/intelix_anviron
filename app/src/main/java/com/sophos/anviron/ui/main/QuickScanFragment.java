@@ -39,8 +39,9 @@ import at.markushi.ui.CircleButton;
  */
 public class QuickScanFragment extends Fragment {
 
-    private final String rootPath = Environment.getRootDirectory().getAbsolutePath();
     ArrayList<File> filesToScan = null;
+    View root = null;
+    DatabaseRepository repository = null;
 
     public static QuickScanFragment newInstance(int index) {
         QuickScanFragment fragment = new QuickScanFragment();
@@ -58,9 +59,9 @@ public class QuickScanFragment extends Fragment {
             Bundle savedInstanceState) {
 
 
-        final View root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
-        DatabaseRepository repository = new DatabaseRepository(getActivity().getApplication());
-        ImageButton infoButton = (ImageButton) root.findViewById(R.id.infoBtn);
+        root = inflater.inflate(R.layout.quick_scan_fragment, container, false);
+        repository = new DatabaseRepository(getActivity().getApplication());
+        ImageButton infoButton = root.findViewById(R.id.infoBtn);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +121,7 @@ public class QuickScanFragment extends Fragment {
             }
 
             Integer unScannedFiles = CommonUtils.listItemsDiffsCount(allFilesPathsInUserSpace, filesScannedQuickUnique);
-            Double scanCoverage = 100.0 - ((unScannedFiles / allFilesInUserSpace.size()) * 100.0);
+            Double scanCoverage = 100.0 - ((unScannedFiles.doubleValue() / allFilesInUserSpace.size()) * 100.0);
 
             txtScanCoverage.setText(df1.format(scanCoverage)+" %");
         }

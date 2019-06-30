@@ -32,7 +32,7 @@ public interface ScanDAO extends BaseDAO<Scan> {
             "FROM file_scan_mapping m " +
             "GROUP BY scan_id) as sub " +
             "WHERE sub.scan_id = s.scan_id " +
-            "ORDER BY datetime(s.submission_time) desc"
+            "ORDER BY s.submission_time desc"
     )
     public LiveData<List<ScanReport>> getScanReport();
 

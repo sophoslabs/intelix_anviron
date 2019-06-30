@@ -12,14 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
-
 import com.sophos.anviron.dao.ScanDAO;
 import com.sophos.anviron.models.ReportViewModel;
 import com.sophos.anviron.service.main.DatabaseService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,8 +86,6 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
 
         reportsAdapter.notifyDataSetChanged();
         expandableReportsAdapter.notifyDataSetChanged();
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
