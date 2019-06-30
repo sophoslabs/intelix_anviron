@@ -66,7 +66,7 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         }
 
         if (scanReport.completion_time == null) {
-            rowCompletionTime.setText("Completion: - ");
+            rowCompletionTime.setText("Completion: " + scanReport.completion_time);
         } else {
             rowCompletionTime.setText("Completion: " + scanReport.completion_time);
         }

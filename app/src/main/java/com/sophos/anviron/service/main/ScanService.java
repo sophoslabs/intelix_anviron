@@ -75,7 +75,6 @@ public class ScanService extends IntentService {
                             }
 
 
-
                             APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
                             HashMap<String, String> report_map = api_wrapper.get_file_report();
 
@@ -86,7 +85,7 @@ public class ScanService extends IntentService {
                                 String response = report_map.get(fileSHA256);
                                 reputationScore = Long.parseLong("-1");
 
-                                if (!response.equalsIgnoreCase("NA")){
+                                if (!response.equalsIgnoreCase("NA")) {
                                     JSONObject responseJson = (JSONObject) parser.parse(response);
                                     reputationScore = (Long) responseJson.get("reputationScore");
                                 }
@@ -155,7 +154,7 @@ public class ScanService extends IntentService {
                             reputationScore = Long.parseLong("-1");
                             hasScanResult = true;
 
-                        } catch (Error e){
+                        } catch (Error e) {
                             e.printStackTrace();
                             reputationScore = Long.parseLong("-1");
                             hasScanResult = true;
@@ -178,6 +177,7 @@ public class ScanService extends IntentService {
                                 detection.setStatus("detected");
                                 detection.setDetection_time(CommonUtils.getCurrentDateTime());
 
+                                //Add or update detection table
                                 if (detectionId == null) {
                                     detection.setDetection_id(CommonUtils.generateUUID());
                                     dbInstance.getDetectionDAO().insert(detection);
@@ -189,6 +189,9 @@ public class ScanService extends IntentService {
                                 Log.i("report quick/static/dynamic detection: ", detection.toString());
                             }
                             dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
+                            //Add or update scan table for completion time
+                            if (dbInstance.getMappingDAO().getScanStatusByScanId(mapping.scanId).equalsIgnoreCase("completed"))
+                                dbInstance.getScanDAO().updateCompletionTimeByScanId(CommonUtils.getCurrentDateTime(), mapping.scanId);
                         }
                     }
 
