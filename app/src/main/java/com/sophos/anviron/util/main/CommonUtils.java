@@ -99,6 +99,11 @@ public class CommonUtils {
         return fileSubPaths[fileSubPaths.length-1];
     }
 
+    public static String getFolderPathFromFilePath(String filePath){
+        Integer index = filePath.lastIndexOf("/");
+        return filePath.substring(0,index);
+    }
+
     public static String getDetectionType(Long reputationScore){
         if (reputationScore>=0 && reputationScore<=19)
             return "malware";

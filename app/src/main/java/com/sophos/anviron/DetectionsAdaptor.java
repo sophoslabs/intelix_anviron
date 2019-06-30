@@ -39,6 +39,8 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
         holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
 
         holder.rowAnalysisDate.setText(fileDetectionMapping.detectionTime);
+
+        holder.rowFolderPath.setText("Location: "+CommonUtils.getFolderPathFromFilePath(fileDetectionMapping.filePath));
     }
 
     @Override
@@ -48,13 +50,14 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView rowFileName, rowDetectionState, rowAnalysisDate;
+        public TextView rowFileName, rowFolderPath, rowDetectionState, rowAnalysisDate;
 
         public MyViewHolder(View view) {
             super(view);
             rowFileName =  view.findViewById(R.id.rowFileName);
             rowDetectionState =  view.findViewById(R.id.rowDetectionState);
             rowAnalysisDate = view.findViewById(R.id.rowAnalysisDate);
+            rowFolderPath = view.findViewById(R.id.rowFolderPath);
         }
     }
 
