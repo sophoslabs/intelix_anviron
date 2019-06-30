@@ -21,12 +21,29 @@
             app:titleTextAppearance="@style/AppBar.Title.Theme" />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/report_recycle_view"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="50sp"
-        android:scrollbars="vertical" />
+        android:paddingVertical="50sp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/report_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="50sp"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
+
+        <ExpandableListView
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+        </ExpandableListView>
+    </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"

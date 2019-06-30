@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public static String api_client;
     public static String api_secret;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

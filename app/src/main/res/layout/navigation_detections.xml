@@ -37,8 +37,8 @@
             android:layout_height="match_parent"
             android:paddingVertical="50sp"
             android:scrollbars="vertical" />
-
     </RelativeLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="0dp"

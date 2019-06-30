@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/row_padding_vertical"
+    android:paddingBottom="10dp"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
 
@@ -34,38 +35,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/rowSubmissionTime"
+                android:id="@+id/rowIsFileUploaded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:text="submission time" />
+                android:text="Files Sent Remotely?" />
 
             <TextView
-                android:id="@+id/rowScanStatus"
+                android:id="@+id/rowTotalCost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="status" />
+                android:text="Total Cost" />
 
         </LinearLayout>
         <TextView
-            android:id="@+id/isFileUploaded"
+            android:id="@+id/rowTotalDetections"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:text="Files Sent Remotely?" />
+            android:text="Total Detections" />
         <TextView
             android:id="@+id/rowTotalFiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
             android:text="Total Files" />
-
-        <TextView
-            android:id="@+id/rowScanType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="scan type" />
 
         <TextView
             android:id="@+id/rowCompletionTime"

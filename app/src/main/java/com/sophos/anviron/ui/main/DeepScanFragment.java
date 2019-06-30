@@ -1,14 +1,11 @@
 package com.sophos.anviron.ui.main;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -31,7 +27,11 @@ import com.sophos.anviron.service.main.DatabaseService;
 import com.sophos.anviron.util.main.CommonUtils;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import at.markushi.ui.CircleButton;
 
@@ -112,6 +112,34 @@ public class DeepScanFragment extends Fragment {
         TextView txtTotalDetections = root.findViewById(R.id.txtTotalDetectionsDeep);
         txtTotalDetections.setText(repository.getTotalDetectionsDeep().toString());
 
+        TextView txtTotalCostDeep = root.findViewById(R.id.txtTotalCostDeep);
+        txtTotalCostDeep.setText(repository.getTotalCostDeep().toString());
+
+        TextView txtScanCoverage = root.findViewById(R.id.txtScanCoverageDeep);
+        txtScanCoverage.setText("100 %"); //default we think that scan coverage is 100% until below code updates it with actual value
+
+        List<String> filesScannedStaticWithDuplicates = repository.getFilesScannedStatic();
+        List<String> filesScannedDynamicWithDuplicates = repository.getFilesScannedDynamic();
+
+        Set<String> set = new LinkedHashSet<>(filesScannedStaticWithDuplicates);
+        set.addAll(filesScannedDynamicWithDuplicates);
+        ArrayList<String> filesScannedDeepUnique = new ArrayList<>(set);
+
+        ArrayList<File> allFilesInUserSpace = CommonUtils.getAllFilesInUserSpace();
+        ArrayList<String> allFilesPathsInUserSpace = new ArrayList<>();
+
+        if(allFilesInUserSpace.size()>0) {
+
+            for (File file : allFilesInUserSpace) {
+                allFilesPathsInUserSpace.add(file.toString());
+            }
+
+            Integer unScannedFiles = CommonUtils.listItemsDiffsCount(allFilesPathsInUserSpace, filesScannedDeepUnique);
+            Double scanCoverage = 100.0 - ((new Double(unScannedFiles) / allFilesInUserSpace.size()) * 100.0);
+
+            DecimalFormat df = new DecimalFormat("#.#");
+            txtScanCoverage.setText(df.format(scanCoverage)+" %");
+        }
         return root;
     }
 

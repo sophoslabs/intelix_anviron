@@ -58,7 +58,6 @@ public class ScanService extends IntentService {
                         try {
 
                             String fileSHA256 = CommonUtils.getSHA256(mapping.filePath);
-
                             HashMap<String, String> params_map = new HashMap<>();
                             HashMap<String, String> fileOrJobId = new HashMap<>();
                             JSONParser parser = new JSONParser();
@@ -74,6 +73,8 @@ public class ScanService extends IntentService {
                                 fileOrJobId.put("file", mapping.filePath);
                                 apiEndpoint = "analysis/file/dynamic/v1";
                             }
+
+
 
                             APIWrapper api_wrapper = new APIWrapper(apiURI, apiEndpoint, corelationId, params_map, fileOrJobId);
                             HashMap<String, String> report_map = api_wrapper.get_file_report();

@@ -54,15 +54,16 @@
                 android:layout_gravity="center"
                 android:src="@drawable/file"
                 android:tint="@color/white"/>
+
             <TextView
                 android:id="@+id/txtTotalScannedFilesQuick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="bold"
                 android:layout_marginTop="10dp"
+                android:text="1500"
                 android:textSize="20sp"
-                android:text="1500"/>
+                android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -142,7 +143,7 @@
                 android:src="@drawable/clean_coverage"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/coverageTxt"
+                android:id="@+id/txtScanCoverageQuick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -150,18 +151,18 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="1500"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="8dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/gridColor3Dark"
+                android:fontFamily="sans-serif"
+                android:padding="8dp"
                 android:text="Scan coverage"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif"
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -181,7 +182,7 @@
                 android:src="@drawable/cost"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/costTxt"
+                android:id="@+id/txtTotalCostQuick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

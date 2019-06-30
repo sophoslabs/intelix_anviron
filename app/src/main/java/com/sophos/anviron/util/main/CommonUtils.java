@@ -1,5 +1,7 @@
 package com.sophos.anviron.util.main;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,6 +36,27 @@ public class CommonUtils {
             return allFiles;
         }
         return allFiles;
+    }
+
+    public static ArrayList<File> getAllFilesInUserSpace(){
+
+        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File file = new File(rootPath);
+        ArrayList<File> files = new ArrayList<File>();
+        files = getAllNestedFilesRecursively(files, file);
+        return files;
+    }
+
+    public static Integer listItemsDiffsCount(ArrayList<String> allItems, ArrayList<String> checkItems){
+        Integer diffCount = allItems.size();
+        for (String itemSource: allItems) {
+            for (String itemTarget : checkItems) {
+                if (itemSource.equalsIgnoreCase(itemTarget)){
+                    diffCount--;
+                }
+            }
+        }
+        return diffCount;
     }
 
     public static String bytesToHexString(byte[] bytes) {

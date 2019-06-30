@@ -1,5 +1,7 @@
 package com.sophos.anviron.util.main;
 
+import android.util.Log;
+
 import com.sophos.anviron.MainActivity;
 
 import java.util.HashMap;
@@ -49,12 +51,14 @@ public class GetFileReport {
 
     public String getAuthorization(AccessToken access_token) throws Exception {
         if (access_token == null) {
-
             AccessToken access_token2 = new AccessToken(MainActivity.api_client, MainActivity.api_secret);
+            access_token2.generate_access_token();
             access_token = access_token2;
+
         } else if (access_token.isTokenExpired()) {
 
             AccessToken access_token2 = new AccessToken(MainActivity.api_client, MainActivity.api_secret);
+            access_token2.generate_access_token();
             access_token = access_token2;
         }
         return access_token.getAccessToken();
@@ -97,8 +101,9 @@ public class GetFileReport {
             URL temp_url = new URL(local_url);
             url = temp_url;
         }
-        Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
-        HttpURLConnection http_conn = (HttpURLConnection) url.openConnection(webproxy);
+        // Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
+        // HttpURLConnection http_conn = (HttpURLConnection) url.openConnection(webproxy);
+        HttpURLConnection http_conn = (HttpURLConnection) url.openConnection();
         String authorization = getAuthorization(access_token);
 
         http_conn.setRequestMethod(this.http_method);
@@ -111,7 +116,8 @@ public class GetFileReport {
         if (this.correlation_id != null) {
             http_conn.setRequestProperty("X-Correlation-ID", this.correlation_id);
         }
-        http_conn.setDoOutput(true);
+
+        // http_conn.setDoOutput(true);
 
         // String postData = get_params(this.params);                          
         // if (postData != "") {
@@ -119,6 +125,8 @@ public class GetFileReport {
         //         wr.write(postData.getBytes("UTF-8"));
         //     }
         // }
+
+
 
         String data = "";
         try {
@@ -129,6 +137,7 @@ public class GetFileReport {
                 data = data + line;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             data = "NA";
             System.out.println(http_conn.getResponseCode());
 

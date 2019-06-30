@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.main.QuickScanFragment">
+    tools:context=".ui.main.DeepScanFragment">
 
     <ImageButton
         android:id="@+id/infoBtn2"
@@ -131,7 +131,7 @@
                 android:src="@drawable/clean_coverage"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/coverageTxt"
+                android:id="@+id/txtScanCoverageDeep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -170,7 +170,7 @@
                 android:src="@drawable/cost"
                 android:tint="@color/white"/>
             <TextView
-                android:id="@+id/costTxt"
+                android:id="@+id/txtTotalCostDeep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

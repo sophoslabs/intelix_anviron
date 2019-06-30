@@ -1,8 +1,6 @@
 package com.sophos.anviron.ui.main;
 
 import android.app.AlertDialog;
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
@@ -29,7 +26,11 @@ import com.sophos.anviron.service.main.DatabaseService;
 import com.sophos.anviron.util.main.CommonUtils;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import at.markushi.ui.CircleButton;
 
@@ -95,9 +96,34 @@ public class QuickScanFragment extends Fragment {
 
         TextView txtTotalDetections = root.findViewById(R.id.txtTotalDetectionsQuick);
         txtTotalDetections.setText(repository.getTotalDetectionsQuick().toString());
+
+        TextView txtTotalCost = root.findViewById(R.id.txtTotalCostQuick);
+        txtTotalCost.setText(repository.getTotalCostQuick().toString());
+
+        TextView txtScanCoverage = root.findViewById(R.id.txtScanCoverageQuick);
+        txtScanCoverage.setText("100 %"); //default we think that scan coverage is 100% until below code updates it with actual value
+
+        List<String> filesScannedQuickWithDuplicates = repository.getFilesScannedQuick();
+        Set<String> set = new LinkedHashSet<>(filesScannedQuickWithDuplicates);
+        ArrayList<String> filesScannedQuickUnique = new ArrayList<>(set);
+
+        ArrayList<File> allFilesInUserSpace = CommonUtils.getAllFilesInUserSpace();
+        ArrayList<String> allFilesPathsInUserSpace = new ArrayList<>();
+
+        if(allFilesInUserSpace.size()>0) {
+
+            for (File file : allFilesInUserSpace) {
+                allFilesPathsInUserSpace.add(file.toString());
+            }
+
+            Integer unScannedFiles = CommonUtils.listItemsDiffsCount(allFilesPathsInUserSpace, filesScannedQuickUnique);
+            Double scanCoverage = 100.0 - ((unScannedFiles / allFilesInUserSpace.size()) * 100.0);
+
+            DecimalFormat df = new DecimalFormat("#.#");
+            txtScanCoverage.setText(df.format(scanCoverage)+" %");
+        }
         return root;
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 

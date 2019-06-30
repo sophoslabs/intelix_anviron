@@ -18,7 +18,7 @@ public class ReportViewModel extends AndroidViewModel {
     public ReportViewModel(@NonNull Application application) {
         super(application);
         databaseRepository = new DatabaseRepository(application);
-        liveScanReportList = databaseRepository.getScanReport();
+        liveScanReportList = databaseRepository.getLiveScanReportList();
     }
 
     public LiveData<List<ScanDAO.ScanReport>> getScanReport() {
