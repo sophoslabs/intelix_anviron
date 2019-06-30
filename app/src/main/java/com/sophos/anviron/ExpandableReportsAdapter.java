@@ -1,5 +1,6 @@
 package com.sophos.anviron;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.sophos.anviron.dao.ScanDAO;
+import com.sophos.anviron.service.main.DatabaseService;
+import com.sophos.anviron.util.main.CommonUtils;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +56,7 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         TextView rowTotalDetections = view.findViewById(R.id.rowTotalDetections);
         TextView rowCompletionTime = view.findViewById(R.id.rowCompletionTime);
         TextView rowTotalFiles = view.findViewById(R.id.rowTotalFiles);
+        TextView rowTotalCost = view.findViewById(R.id.rowTotalCost);
 
         rowScanId.setText(scanReport.scan_id);
         if (scanReport.is_file_uploaded) {
@@ -66,7 +70,34 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         } else {
             rowCompletionTime.setText("Completion: " + scanReport.completion_time);
         }
-        rowTotalFiles.setText("Total Files Scanned: " + scanReport.total_files.toString());
+        rowTotalFiles.setText("Files scanned: " + scanReport.total_files.toString());
+
+        DatabaseService dbInstance = DatabaseService.getInstance(view.getContext().getApplicationContext());
+        rowTotalDetections.setText("Files detected: " + dbInstance.getDetectionDAO().getDetectionsByScanId(scanReport.scan_id).toString());
+
+        // Logic to calculate cost
+
+        Double quickScanCost = Double.parseDouble(view.getContext().getString(R.string.quick_cost_dollar));
+        Double staticScanCost = Double.parseDouble(view.getContext().getString(R.string.static_cost_dollar));
+        Double dynamicScanCost = Double.parseDouble(view.getContext().getString(R.string.dynamic_cost_dollar));
+
+        Double totalScanCost = 0.0;
+
+        switch(scanReport.scan_type){
+            case "quick":
+                totalScanCost  = quickScanCost * Double.parseDouble(scanReport.total_files);
+                break;
+            case "static":
+                totalScanCost  = staticScanCost * Double.parseDouble(scanReport.total_files);
+                break;
+            case "dynamic":
+                totalScanCost  = dynamicScanCost * Double.parseDouble(scanReport.total_files);
+                break;
+        }
+
+        DecimalFormat df3 = new DecimalFormat(view.getContext().getString(R.string.decimal_format_3_precision));
+
+        rowTotalCost.setText(df3.format(totalScanCost) + " $");
 
         return view;
     }
