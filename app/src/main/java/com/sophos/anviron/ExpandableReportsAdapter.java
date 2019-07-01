@@ -6,10 +6,14 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sophos.anviron.dao.ScanDAO;
@@ -67,8 +71,9 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
 
         if (scanReport.completion_time == null) {
             rowCompletionTime.setText("Completion: " + scanReport.completion_time);
+            rowCompletionTime.setVisibility(view.VISIBLE);
         } else {
-            rowCompletionTime.setText("Completion: " + scanReport.completion_time);
+            rowCompletionTime.setVisibility(view.GONE);
         }
         rowTotalFiles.setText("Files scanned: " + scanReport.total_files.toString());
 
@@ -139,7 +144,7 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         TextView listTitleTextView = view.findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
 
-        TextView listScanStatusTextView = view.findViewById(R.id.listScanStatus);
+        ProgressBar progressBar = view.findViewById(R.id.progressBarScanStatus);
         TextView listScanSubmittedTime = view.findViewById(R.id.listScanSubmittedTime);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
 
@@ -149,7 +154,14 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         String capitalizeTitleText = title.substring(0,1).toUpperCase() + title.substring(1);
         listTitleTextView.setText(capitalizeTitleText);
 
-        listScanStatusTextView.setText(scanReport.scan_status);
+        if(scanReport.scan_status.equalsIgnoreCase("completed")) {
+            progressBar.setVisibility(view.INVISIBLE);
+        }
+        else
+        {
+            progressBar.setVisibility(view.VISIBLE);
+        }
+
         listScanSubmittedTime.setText(scanReport.submission_time);
 
         return view;

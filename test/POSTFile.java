@@ -50,9 +50,9 @@ public class POSTFile{
     public String submitFile(AccessToken access_token) throws Exception{
         File file_obj = new File(this.file); 
         String authorization = getAuthorization(access_token);
-        // Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
-        // OkHttpClient client = new OkHttpClient.Builder().proxy(webproxy).build();
-        OkHttpClient client = new OkHttpClient.Builder().build();
+        Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
+        OkHttpClient client = new OkHttpClient.Builder().proxy(webproxy).build();
+        //OkHttpClient client = new OkHttpClient.Builder().build();
 
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", "filename",
             RequestBody.create(MediaType.parse("application/octet-stream"), file_obj)).build();

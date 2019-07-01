@@ -85,9 +85,9 @@ public class AccessToken {
 
     public String generate_access_token() throws Exception{
         URL url = new URL(this.url);                
-        // Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
-        // HttpURLConnection http_con = (HttpURLConnection) url.openConnection(webproxy);
-        HttpURLConnection http_con = (HttpURLConnection) url.openConnection();
+        Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
+        HttpURLConnection http_con = (HttpURLConnection) url.openConnection(webproxy);
+        //HttpURLConnection http_con = (HttpURLConnection) url.openConnection();
         String encoding = getEncoding();
         String auth = get_auth(encoding);
         http_con.setDoOutput(true);   
