@@ -70,12 +70,12 @@ public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
         }
 
         if (scanReport.completion_time == null) {
+            rowCompletionTime.setVisibility(view.GONE);
+        } else {
             rowCompletionTime.setText("Completion: " + scanReport.completion_time);
             rowCompletionTime.setVisibility(view.VISIBLE);
-        } else {
-            rowCompletionTime.setVisibility(view.GONE);
         }
-        rowTotalFiles.setText("Files scanned: " + scanReport.total_files.toString());
+        rowTotalFiles.setText("Files submitted: " + scanReport.total_files.toString());
 
         DatabaseService dbInstance = DatabaseService.getInstance(view.getContext().getApplicationContext());
         rowTotalDetections.setText("Files detected: " + dbInstance.getDetectionDAO().getDetectionsByScanId(scanReport.scan_id).toString());

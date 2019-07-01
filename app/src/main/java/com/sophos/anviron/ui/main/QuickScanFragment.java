@@ -16,9 +16,11 @@ import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.sophos.anviron.MainActivity;
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
+import com.sophos.anviron.ReportsActivity;
 import com.sophos.anviron.database.DatabaseRepository;
 import com.sophos.anviron.models.FileScanMapping;
 import com.sophos.anviron.models.Scan;
@@ -182,6 +184,8 @@ public class QuickScanFragment extends Fragment {
 
                 }
             }
+            Intent intent = new Intent(getActivity(), ReportsActivity.class);
+            startActivity(intent);
         }
     }
 

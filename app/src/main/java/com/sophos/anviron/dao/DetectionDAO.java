@@ -34,7 +34,7 @@ public interface DetectionDAO extends BaseDAO<Detection> {
     @Query("SELECT f.file_id as fileId, f.file_path as filePath, d.detection_id as detectionId, d.detection_type as detectionType, d.detection_name as detectionName, d.detection_time as detectionTime, d.status as detectionStatus from file f JOIN detection d on f.file_id = d.file_id order by d.detection_time desc")
     public LiveData<List<FileDetectionMapping>> getFileDetections();
 
-    @Query("SELECT count(distinct(d.detection_id)) FROM detection d join file_scan_mapping m on d.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanType")
+    @Query("SELECT count(distinct(d.detection_id)) FROM detection d join file_scan_mapping m on d.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanType and d.status='detected'")
     public Integer getTotalDetectionsByScanType(String scanType);
 
     @Query("SELECT count(d.detection_id) as total_detections FROM detection d JOIN file_scan_mapping m on d.file_id = m.file_id where m.scan_id = :scanId")
