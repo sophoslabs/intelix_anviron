@@ -41,23 +41,30 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
 
         holder.rowFileName.setText(CommonUtils.getFileNameFromFilePath(fileDetectionMapping.filePath));
 
-        holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
-
         if(fileDetectionMapping.detectionStatus.equalsIgnoreCase("clean")){
-            holder.btnMarkClean.setText("MARKED CLEAN");
+
+            holder.btnMarkClean.setText("MARK AS UNCLEAN");
+            holder.rowDetectionState.setText("MARKED CLEAN");
             holder.btnDeleteFile.setEnabled(false);
-            holder.btnMarkClean.setEnabled(false);
-            holder.rowDetectionState.setText("CLEAN");
+            holder.btnMarkClean.setEnabled(true);
             holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
         }
-
         else if(fileDetectionMapping.detectionStatus.equalsIgnoreCase("deleted")){
+            holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
             holder.btnDeleteFile.setText("DELETED");
+            holder.btnMarkClean.setText("MARK CLEAN");
             holder.btnDeleteFile.setEnabled(false);
             holder.btnMarkClean.setEnabled(false);
             holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
         }
-
+        else if(fileDetectionMapping.detectionStatus.equalsIgnoreCase("detected")){
+            holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
+            holder.btnDeleteFile.setText("DELETE");
+            holder.btnMarkClean.setText("MARK CLEAN");
+            holder.btnDeleteFile.setEnabled(true);
+            holder.btnMarkClean.setEnabled(true);
+            holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.detection_card));
+        }
 
         holder.rowAnalysisDate.setText("Detection Time: "+fileDetectionMapping.detectionTime);
 
@@ -69,6 +76,7 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
 
                 DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
                 holder.btnDeleteFile.setText("DELETED");
+                holder.btnMarkClean.setText("MARK CLEAN");
                 holder.btnDeleteFile.setEnabled(false);
                 holder.btnMarkClean.setEnabled(false);
 
@@ -90,20 +98,33 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
             public void onClick(View v) {
 
                 DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
-                dbInstance.getDetectionDAO().updateStatusByDetectionId("clean",fileDetectionMapping.detectionId);
 
-                holder.btnMarkClean.setText("MARKED CLEAN");
-                holder.btnDeleteFile.setEnabled(false);
-                holder.btnMarkClean.setEnabled(false);
-                holder.rowDetectionState.setText("CLEAN");
+                if(holder.btnMarkClean.getText().toString().equalsIgnoreCase("MARK CLEAN")) {
 
-                holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
+                    dbInstance.getDetectionDAO().updateStatusByDetectionId("clean", fileDetectionMapping.detectionId);
+
+                    holder.btnDeleteFile.setText("DELETE");
+                    holder.btnDeleteFile.setEnabled(false);
+                    holder.btnMarkClean.setText("MARK AS UNCLEAN");
+                    holder.btnMarkClean.setEnabled(true);
+                    holder.rowDetectionState.setText("MARKED CLEAN");
+                    holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
+                }
+                else if(holder.btnMarkClean.getText().toString().equalsIgnoreCase("MARK AS UNCLEAN")){
+
+                    dbInstance.getDetectionDAO().updateStatusByDetectionId("detected", fileDetectionMapping.detectionId);
+                    holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
+                    holder.btnMarkClean.setText("MARK CLEAN");
+                    holder.btnDeleteFile.setText("DELETE");
+                    holder.btnMarkClean.setEnabled(true);
+                    holder.btnDeleteFile.setEnabled(true);
+                    holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.detection_card));
+                }
             }
         });
-
     }
 
-
+    
     @Override
     public int getItemCount() {
         return fileDetectionMappings.size();

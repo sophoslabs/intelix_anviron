@@ -11,14 +11,31 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/appbar_title_action_bar_height"
-            app:title="@string/app_name"
-            app:subtitle="Powered by Intelix"
-            app:subtitleTextAppearance="@style/AppBar.SubTitle.Theme"
-            app:titleTextAppearance="@style/AppBar.Title.Theme"/>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_header_title"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:paddingTop="10sp"
+                android:paddingLeft="20sp"
+                android:src="@drawable/app_logo" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_height="@dimen/appbar_title_action_bar_height"
+                app:title="@string/app_name"
+                app:subtitle="Powered by Intelix"
+                app:subtitleTextAppearance="@style/AppBar.SubTitle.Theme"
+                app:titleTextAppearance="@style/AppBar.Title.Theme"
+                />
+
+        </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
