@@ -16,11 +16,11 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppBar.Title.Theme" parent="@style/TextAppearance.AppCompat.Body1">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="AppBar.SubTitle.Theme" parent="@style/TextAppearance.AppCompat.Small">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">13sp</item>
     </style>
     <style name="NavigationView" >
         <item name="fontFamily">@font/nasa</item>
