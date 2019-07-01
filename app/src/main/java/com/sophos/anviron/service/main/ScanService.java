@@ -244,7 +244,7 @@ public class ScanService extends IntentService {
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "channel 1";
-            String description = "First channel for risk advisor app";
+            String description = "First channel for AnViron app";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("default", name, importance);
             channel.setDescription(description);
