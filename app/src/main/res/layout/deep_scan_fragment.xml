@@ -58,7 +58,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/gridColor1Dark"
-                android:text="Total scanned files"
+                android:text="Files Scanned"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -91,18 +91,18 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:text="1500"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="8dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/gridColor2Dark"
-                android:text="Total detections"
+                android:fontFamily="sans-serif"
+                android:padding="8dp"
+                android:text="Active detections"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif"
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -184,7 +184,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/gridColor4Dark"
-                android:text="Total cost"
+                android:text="Cost Incurred"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"

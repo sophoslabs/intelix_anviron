@@ -1,21 +1,26 @@
 package com.sophos.anviron.service.main;
 
 import android.app.IntentService;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-
 import com.sophos.anviron.R;
+import com.sophos.anviron.ReportsActivity;
 import com.sophos.anviron.dao.FileScanMappingDAO;
 import com.sophos.anviron.models.Detection;
 import com.sophos.anviron.util.main.APIWrapper;
 import com.sophos.anviron.util.main.CommonUtils;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class ScanService extends IntentService {
 
@@ -182,16 +187,22 @@ public class ScanService extends IntentService {
                                     detection.setDetection_id(CommonUtils.generateUUID());
                                     dbInstance.getDetectionDAO().insert(detection);
                                 } else {
+
                                     detection.setDetection_id(detectionId);
-                                    dbInstance.getDetectionDAO().update(detection);
+                                    String detectionStatus = dbInstance.getDetectionDAO().getDetectionStatusByDetectionId(detectionId);
+                                    if(!detectionStatus.equalsIgnoreCase("clean")){
+                                        dbInstance.getDetectionDAO().update(detection);
+                                    }
                                 }
 
                                 Log.i("report quick/static/dynamic detection: ", detection.toString());
                             }
                             dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
                             //Add or update scan table for completion time
-                            if (dbInstance.getMappingDAO().getScanStatusByScanId(mapping.scanId).equalsIgnoreCase("completed"))
+                            if (dbInstance.getMappingDAO().getScanStatusByScanId(mapping.scanId).equalsIgnoreCase("completed")) {
                                 dbInstance.getScanDAO().updateCompletionTimeByScanId(CommonUtils.getCurrentDateTime(), mapping.scanId);
+                                sendNotification(mapping);
+                            }
                         }
                     }
 
@@ -207,6 +218,40 @@ public class ScanService extends IntentService {
 
         } catch (Exception e) {
             Log.e("ScanService", e.toString());
+        }
+    }
+
+    protected void sendNotification(FileScanMappingDAO.CustomJoinFileScanMapping mapping) {
+        int randomInt = new Random().nextInt();
+        createNotificationChannel();
+        Intent notificationIntent = new Intent(getApplicationContext(), ReportsActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), randomInt, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Anviron Security")
+                .setContentText("Your report for " + mapping.scanType + " scan is ready. Click here to view.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(randomInt, mBuilder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "channel 1";
+            String description = "First channel for AnViron app";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("default", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 

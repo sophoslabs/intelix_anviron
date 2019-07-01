@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:text="@string/scan_id"
-            android:textColor="@color/title"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -38,6 +38,7 @@
                 android:id="@+id/rowIsFileUploaded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="Files Sent Remotely?" />
 
             <TextView
@@ -45,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:text="Total Cost" />
 
         </LinearLayout>
@@ -52,18 +54,21 @@
             android:id="@+id/rowTotalDetections"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Total Detections" />
         <TextView
             android:id="@+id/rowTotalFiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/white"
             android:text="Total Files" />
 
         <TextView
             android:id="@+id/rowCompletionTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Completion time" />
     </LinearLayout>
 
