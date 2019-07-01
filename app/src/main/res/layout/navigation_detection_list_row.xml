@@ -61,20 +61,20 @@
                 android:id="@+id/btnDeleteFile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:text="DELETE"></Button>
 
             <Button
                 android:id="@+id/btnMarkClean"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:text="MARK CLEAN"></Button>
             <Button
                 android:id="@+id/btnQuarantineFile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:text="Quarantine"></Button>
         </LinearLayout>
     </RelativeLayout>
