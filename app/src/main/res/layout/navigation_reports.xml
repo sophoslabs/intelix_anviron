@@ -20,8 +20,9 @@
                 android:id="@+id/tv_header_title"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
+                android:paddingTop="5sp"
+                android:paddingBottom="5sp"
                 android:paddingLeft="20sp"
-                android:paddingTop="10sp"
                 android:src="@drawable/app_logo" />
 
             <android.support.v7.widget.Toolbar

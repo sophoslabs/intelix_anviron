@@ -231,7 +231,7 @@ public class ScanService extends IntentService {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Anviron Security")
-                .setContentText("Your report for " + mapping.scanType + " scan  is ready. Click to view")
+                .setContentText("Your report for " + mapping.scanType + " scan is ready. Click here to view.")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
