@@ -90,7 +90,7 @@ public class CommonUtils {
     }
 
     public static String getCurrentDateTime(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(Calendar.getInstance().getTime());
     }
 

@@ -40,7 +40,7 @@ public interface DetectionDAO extends BaseDAO<Detection> {
     @Query("SELECT count(distinct(d.detection_id)) FROM detection d join file_scan_mapping m on d.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanType and d.status='detected'")
     public Integer getTotalDetectionsByScanType(String scanType);
 
-    @Query("SELECT count(d.detection_id) as total_detections FROM detection d JOIN file_scan_mapping m on d.file_id = m.file_id where m.scan_id = :scanId and d.status!='clean'")
+    @Query("SELECT count(d.detection_id) as total_detections FROM detection d JOIN file_scan_mapping m on d.file_id = m.file_id where m.scan_id = :scanId and d.status!='clean' and d.status!='quarantine'")
     public Integer getDetectionsByScanId(String scanId);
 
     @Query("UPDATE detection set status=:status where detection_id=:detectionId")
