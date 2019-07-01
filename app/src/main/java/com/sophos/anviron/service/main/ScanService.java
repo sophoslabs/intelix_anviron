@@ -182,8 +182,12 @@ public class ScanService extends IntentService {
                                     detection.setDetection_id(CommonUtils.generateUUID());
                                     dbInstance.getDetectionDAO().insert(detection);
                                 } else {
+
                                     detection.setDetection_id(detectionId);
-                                    dbInstance.getDetectionDAO().update(detection);
+                                    String detectionStatus = dbInstance.getDetectionDAO().getDetectionStatusByDetectionId(detectionId);
+                                    if(!detectionStatus.equalsIgnoreCase("clean")){
+                                        dbInstance.getDetectionDAO().update(detection);
+                                    }
                                 }
 
                                 Log.i("report quick/static/dynamic detection: ", detection.toString());
