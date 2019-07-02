@@ -6,20 +6,21 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/row_padding_horizontal"
     android:paddingTop="@dimen/row_padding_vertical"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/row_padding_vertical">
+    android:paddingRight="@dimen/row_padding_horizontal"
+    android:paddingBottom="@dimen/row_padding_vertical"
+    android:clipToPadding="false"
+    >
 
     <RelativeLayout
         android:id="@+id/rowDetectionItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/detection_card"
-        android:elevation="20dp"
         android:orientation="vertical"
+        android:elevation="5sp"
         android:padding="10dp">
-        >
 
         <TextView
             android:id="@+id/rowFileName"
