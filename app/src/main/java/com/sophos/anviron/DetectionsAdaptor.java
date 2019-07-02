@@ -92,7 +92,7 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
             holder.btnQuarantineFile.setText("QUARANTINE");
 
             holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.detection_card));
-        }else if (fileDetectionMapping.detectionStatus.equalsIgnoreCase("quarantined")) {
+        } else if (fileDetectionMapping.detectionStatus.equalsIgnoreCase("quarantined")) {
             holder.rowDetectionState.setText(fileDetectionMapping.detectionName);
             holder.btnDeleteFile.setText("DELETE");
             holder.btnQuarantineFile.setText("QUARANTINED");
@@ -112,19 +112,23 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
             @Override
             public void onClick(View v) {
 
-                DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
-                holder.btnDeleteFile.setText("DELETED");
-                holder.btnMarkClean.setText("MARK CLEAN");
-                holder.btnDeleteFile.setEnabled(false);
-                holder.btnMarkClean.setEnabled(false);
-                holder.btnQuarantineFile.setEnabled(false);
-
                 try {
 
                     File file = new File(fileDetectionMapping.filePath);
-                    file.delete();
+
+                    if (file.exists()) {
+                        file.delete();
+                    }
+
+                    DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
                     dbInstance.getDetectionDAO().updateStatusByDetectionId("deleted", fileDetectionMapping.detectionId);
+
                     holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
+                    holder.btnDeleteFile.setText("DELETED");
+                    holder.btnMarkClean.setText("MARK CLEAN");
+                    holder.btnDeleteFile.setEnabled(false);
+                    holder.btnMarkClean.setEnabled(false);
+                    holder.btnQuarantineFile.setEnabled(false);
 
                 } catch (Exception e) {
                     Toast.makeText(v.getContext().getApplicationContext(), "Not able to delete " + fileDetectionMapping.filePath + ". Please delete manually.", Toast.LENGTH_LONG).show();
@@ -164,24 +168,29 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
         });
 
 
-        holder.btnQuarantineFile.setOnClickListener(new View.OnClickListener(){
+        holder.btnQuarantineFile.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                File srcFile =  new File(fileDetectionMapping.filePath);
+
+                File srcFile = new File(fileDetectionMapping.filePath);
                 File destDir = new File(new ContextWrapper(v.getContext().getApplicationContext()).getFilesDir().toString() + "/quarantine");
                 if (!destDir.exists()) {
                     destDir.mkdir();
                 }
-                String destFileName = destDir.toString() + '/' + Uri.parse(fileDetectionMapping.filePath).getLastPathSegment().replace('.', '_') + ".zip";
+                //String destFileName = destDir.toString() + '/' + Uri.parse(fileDetectionMapping.filePath).getLastPathSegment().replace('.', '_') + ".zip";
+
+                String destFileName = destDir.toString() + '/' + fileDetectionMapping.fileId + ".zip";
+
                 try {
                     if (srcFile.exists()) {
-                        Log.v("Compressing file: ", fileDetectionMapping.filePath);
+
+                        Log.i("Compressing file: ", fileDetectionMapping.filePath);
                         FileOutputStream dest = new FileOutputStream(destFileName);
                         ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
-                        FileInputStream fileInputStream = new FileInputStream(fileDetectionMapping.filePath);
+                        FileInputStream fileInputStream = new FileInputStream(srcFile);
                         BufferedInputStream origin = new BufferedInputStream(fileInputStream);
-                        ZipEntry entry = new ZipEntry(fileDetectionMapping.filePath);
+                        ZipEntry entry = new ZipEntry(CommonUtils.getFileNameFromFilePath(fileDetectionMapping.filePath));
                         out.putNextEntry(entry);
 
                         byte data[] = new byte[1000];
@@ -191,30 +200,46 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
                         }
                         origin.close();
                         out.close();
+
+                        // Update database with quarantine state
+                        DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
+                        dbInstance.getDetectionDAO().updateStatusByDetectionId("quarantined", fileDetectionMapping.detectionId);
+
                         srcFile.delete();
+
                         holder.btnQuarantineFile.setText("QUARANTINED");
                         holder.btnDeleteFile.setEnabled(false);
                         holder.btnMarkClean.setEnabled(false);
                         holder.btnQuarantineFile.setEnabled(false);
 
-                        // Update database with quarantine state
-                        DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
-                        dbInstance.getDetectionDAO().updateStatusByDetectionId("quarantined",fileDetectionMapping.detectionId);
-
                         // Updating the UI
                         holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
-                    }
-                    else {
-                        Toast.makeText(v.getContext().getApplicationContext(), "Not able to quarantine " + fileDetectionMapping.filePath+". Please delete manually.", Toast.LENGTH_LONG).show();
+
+
+                    } else {
+                        Toast.makeText(v.getContext().getApplicationContext(), "Not able to quarantine as file does not exist" + fileDetectionMapping.filePath + ". Please delete manually.", Toast.LENGTH_LONG).show();
+                        DatabaseService dbInstance = DatabaseService.getInstance(v.getContext());
+                        dbInstance.getDetectionDAO().updateStatusByDetectionId("deleted", fileDetectionMapping.detectionId);
+
+                        holder.itemView.findViewById(R.id.rowDetectionItem).setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.report_card));
+
+                        holder.btnDeleteFile.setText("DELETED");
+                        holder.btnMarkClean.setText("MARK CLEAN");
+                        holder.btnQuarantineFile.setText("QUARANTINE");
+
+                        holder.btnDeleteFile.setEnabled(false);
+                        holder.btnMarkClean.setEnabled(false);
+                        holder.btnQuarantineFile.setEnabled(false);
                     }
 
 
-                } catch (FileNotFoundException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(v.getContext().getApplicationContext(), "Not able to quarantine " + fileDetectionMapping.filePath + ". Please delete manually.", Toast.LENGTH_LONG).show();
                 }
             }
+            
+
         });
     }
 
