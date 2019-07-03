@@ -58,7 +58,7 @@ public class DetectionsAdaptor extends RecyclerView.Adapter<DetectionsAdaptor.My
         if (fileName.length() >= 25) {
             shortenedFilename = fileName.substring(0, 20);
             shortenedFilename += "...";
-            shortenedFilename += fileName.substring(fileName.length() - 4, fileName.length() - 1);
+            shortenedFilename += fileName.substring(fileName.length() - 4);
         }
 
         holder.rowFileName.setText(shortenedFilename);

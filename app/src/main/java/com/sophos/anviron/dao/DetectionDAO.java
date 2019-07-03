@@ -46,4 +46,6 @@ public interface DetectionDAO extends BaseDAO<Detection> {
     @Query("UPDATE detection set status=:status where detection_id=:detectionId")
     public int updateStatusByDetectionId(String status, String detectionId);
 
+    @Query("DELETE FROM detection where detection_id=:detectionId")
+    public int deleteDetectionByDetectionId(String detectionId);
 }

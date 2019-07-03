@@ -197,6 +197,13 @@ public class ScanService extends IntentService {
 
                                 Log.i("report quick/static/dynamic detection: ", detection.toString());
                             }
+                            else{
+                                String detectionId = dbInstance.getDetectionDAO().getDetectionsByFileId(mapping.fileId);
+                                if (detectionId != null) {
+                                    dbInstance.getDetectionDAO().deleteDetectionByDetectionId(detectionId);
+                                }
+                            }
+
                             dbInstance.getMappingDAO().updateStatus("completed", mapping.scanId, mapping.fileId);
                             //Add or update scan table for completion time
                             if (dbInstance.getMappingDAO().getScanStatusByScanId(mapping.scanId).equalsIgnoreCase("completed")) {
