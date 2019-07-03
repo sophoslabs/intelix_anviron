@@ -99,7 +99,7 @@
                 android:background="@color/gridColor2Dark"
                 android:fontFamily="sans-serif"
                 android:padding="8dp"
-                android:text="Active detections"
+                android:text="Active Detections"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -145,7 +145,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/gridColor3Dark"
-                android:text="Scan coverage"
+                android:text="Scan Coverage"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -236,7 +236,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan"
+        android:text="SCAN"
         android:fontFamily="serif"
         android:textSize="25dp"
         android:elevation="10dp"
@@ -244,7 +244,7 @@
         android:layout_marginTop="-100dp"
         android:gravity="center"
         android:textAlignment="center"
-        android:layout_marginLeft="170dp"/>
+        android:layout_marginLeft="165dp"/>
 
 
 </LinearLayout>
