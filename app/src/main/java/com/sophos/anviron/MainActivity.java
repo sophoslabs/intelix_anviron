@@ -8,15 +8,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.sophos.anviron.models.Scan;
-import com.sophos.anviron.service.main.DatabaseService;
 import com.sophos.anviron.service.main.ScanService;
 import com.sophos.anviron.ui.main.SectionsPagerAdapter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -32,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
-        //View v = LayoutInflater.from(this).inflate(R.layout.quick_scan_fragment, null);
-        // viewPager.addView(v);
         tabs.setupWithViewPager(viewPager);
 
         //Stuffs related to bottom navigation view

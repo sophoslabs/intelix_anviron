@@ -36,9 +36,9 @@ public interface ScanDAO extends BaseDAO<Scan> {
     )
     public LiveData<List<ScanReport>> getScanReport();
 
-    @Query("Select * FROM scan WHERE scan_id = :id")
+    @Query("SELECT * FROM scan WHERE scan_id = :id")
     public Scan getScansById(String id);
 
-    @Query("Update scan set completion_time = :completion_time where scan_id = :scan_id")
+    @Query("UPDATE scan SET completion_time = :completion_time WHERE scan_id = :scan_id")
     public int updateCompletionTimeByScanId(String completion_time, String scan_id);
 }

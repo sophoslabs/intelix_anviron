@@ -1,12 +1,18 @@
 package com.sophos.anviron.ui.main;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +22,6 @@ import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.sophos.anviron.MainActivity;
 import com.sophos.anviron.R;
 import com.aditya.filebrowser.Constants;
 import com.aditya.filebrowser.FileChooser;
@@ -107,7 +112,7 @@ public class QuickScanFragment extends Fragment {
         txtTotalCost.setText(df3.format(repository.getTotalCostQuick()));
 
         TextView txtScanCoverage = root.findViewById(R.id.txtScanCoverageQuick);
-        txtScanCoverage.setText("100 %"); //default we think that scan coverage is 100% until below code updates it with actual value
+        txtScanCoverage.setText("0 %"); //default we think that scan coverage is 0 % until below code updates it with actual value
 
         List<String> filesScannedQuickWithDuplicates = repository.getFilesScannedQuick();
         Set<String> set = new LinkedHashSet<>(filesScannedQuickWithDuplicates);
@@ -116,7 +121,7 @@ public class QuickScanFragment extends Fragment {
         ArrayList<File> allFilesInUserSpace = CommonUtils.getAllFilesInUserSpace();
         ArrayList<String> allFilesPathsInUserSpace = new ArrayList<>();
 
-        if(allFilesInUserSpace.size()>0) {
+        if (allFilesInUserSpace.size() > 0) {
 
             for (File file : allFilesInUserSpace) {
                 allFilesPathsInUserSpace.add(file.toString());
@@ -125,7 +130,7 @@ public class QuickScanFragment extends Fragment {
             Integer unScannedFiles = CommonUtils.listItemsDiffsCount(allFilesPathsInUserSpace, filesScannedQuickUnique);
             Double scanCoverage = 100.0 - ((unScannedFiles.doubleValue() / allFilesInUserSpace.size()) * 100.0);
 
-            txtScanCoverage.setText(df1.format(scanCoverage)+" %");
+            txtScanCoverage.setText(df1.format(scanCoverage) + " %");
         }
         return root;
     }
@@ -136,9 +141,9 @@ public class QuickScanFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        //see request code for deep scan
         if (requestCode == 9999 && data != null) {
-            if (resultCode == -1) {
+            if (resultCode == Activity.RESULT_OK) {
+
                 ArrayList<Uri> selectedFiles = data.getParcelableArrayListExtra(Constants.SELECTED_ITEMS);
                 int i = 0;
                 while (i < selectedFiles.size()) {
@@ -178,14 +183,18 @@ public class QuickScanFragment extends Fragment {
                     FileScanMapping fileScanMapping = new FileScanMapping();
                     fileScanMapping.setFile_id(fileId);
                     fileScanMapping.setScan_id(scanId);
-                    fileScanMapping.setStatus("in progress");
+
+                    fileScanMapping.setStatus("waiting for payment");
 
                     dbInstance.getMappingDAO().insert(fileScanMapping);
-
                 }
+
+                DialogFragment paymentFragment = PaymentFragment.newInstance(scanId);
+                paymentFragment.show(getFragmentManager(), "paymentDialog");
+
             }
-            Intent intent = new Intent(getActivity(), ReportsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getActivity(), ReportsActivity.class);
+//            startActivity(intent);
         }
     }
 
