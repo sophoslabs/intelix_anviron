@@ -3,24 +3,17 @@ package com.sophos.anviron;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sophos.anviron.dao.ScanDAO;
 import com.sophos.anviron.service.main.DatabaseService;
-import com.sophos.anviron.util.main.CommonUtils;
-
-import org.w3c.dom.Text;
 
 public class ExpandableReportsAdapter extends BaseExpandableListAdapter {
 

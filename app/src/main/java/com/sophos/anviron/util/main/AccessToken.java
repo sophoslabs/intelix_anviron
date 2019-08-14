@@ -97,7 +97,7 @@ public class AccessToken {
         http_con.setRequestProperty("Accept-Charset", "UTF-8");        
         http_con.setRequestProperty("Authorization", auth);
         http_con.setRequestProperty("Content-Type", this.content_type);        
-        String postData = get_params();        
+        String postData = get_params();
         try(DataOutputStream wr = new DataOutputStream(http_con.getOutputStream())) {            
             wr.write(postData.getBytes("UTF-8"));
         }

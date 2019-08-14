@@ -148,7 +148,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10sp"
-            android:text="PayTM wallet"
+            android:text="PayTM/Credit Card/Debit Card"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -172,7 +172,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/green"
-
                 android:text="Pay"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -200,8 +199,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"

@@ -12,7 +12,6 @@ import com.sophos.anviron.models.Detection;
 @Dao
 public interface DetectionDAO extends BaseDAO<Detection> {
 
-
     static class FileDetectionMapping {
 
         public String fileId;
@@ -23,8 +22,7 @@ public interface DetectionDAO extends BaseDAO<Detection> {
         public String detectionTime;
         public String detectionStatus;
     }
-
-
+    
     @Query("SELECT * FROM detection")
     public List<Detection> getDetections();
 

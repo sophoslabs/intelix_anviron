@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -194,14 +195,18 @@ public class DeepScanFragment extends Fragment {
                     FileScanMapping fileScanMapping = new FileScanMapping();
                     fileScanMapping.setFile_id(fileId);
                     fileScanMapping.setScan_id(scanId);
-                    fileScanMapping.setStatus("in progress");
+                    fileScanMapping.setStatus("waiting for payment");
 
                     dbInstance.getMappingDAO().insert(fileScanMapping);
 
                 }
+
+                DialogFragment paymentFragment = PaymentFragment.newInstance(scanId);
+                paymentFragment.show(getFragmentManager(), "paymentDialog");
+
             }
-            Intent intent = new Intent(getActivity(), ReportsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getActivity(), ReportsActivity.class);
+//            startActivity(intent);
         }
     }
 }

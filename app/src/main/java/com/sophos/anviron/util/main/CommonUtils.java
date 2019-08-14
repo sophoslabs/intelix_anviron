@@ -1,6 +1,11 @@
 package com.sophos.anviron.util.main;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,4 +120,21 @@ public class CommonUtils {
             return "clean";
         else return "invalid";
     }
+
+    public static String getUniqueImeiId(Context context) {
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            String imei = telephonyManager.getImei();
+            if (imei != null && !imei.isEmpty() && imei.length()>0) {
+                return imei;
+            } else {
+                String serial =  android.os.Build.getSerial();
+                return serial;
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        return "not_found";
+    }
+
 }

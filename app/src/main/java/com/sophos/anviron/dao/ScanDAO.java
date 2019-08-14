@@ -29,7 +29,7 @@ public interface ScanDAO extends BaseDAO<Scan> {
             "sub.total_files as total_files " +
             "FROM scan s," +
             "(SELECT m.scan_id as scan_id, count(m.file_id) as total_files " +
-            "FROM file_scan_mapping m " +
+            "FROM file_scan_mapping m WHERE lower(m.status) NOT IN ('waiting for payment', 'payment failed') " +
             "GROUP BY scan_id) as sub " +
             "WHERE sub.scan_id = s.scan_id " +
             "ORDER BY s.submission_time desc"

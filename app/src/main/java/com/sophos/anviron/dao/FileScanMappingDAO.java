@@ -31,6 +31,9 @@ public interface FileScanMappingDAO extends BaseDAO<FileScanMapping> {
     @Query("UPDATE file_scan_mapping SET status = :status WHERE scan_id = :scan_id and file_id = :file_id")
     int updateStatus(String status, String scan_id, String file_id);
 
+    @Query("UPDATE file_scan_mapping SET status = :status WHERE scan_id = :scan_id")
+    int updateStatus(String status, String scan_id);
+
     @Query("SELECT CASE WHEN count(status) > 0 then 'in progress' else 'completed' end as status from file_scan_mapping where status = 'in progress' and scan_id =:id")
     public String getScanStatusByScanId(String id);
 
