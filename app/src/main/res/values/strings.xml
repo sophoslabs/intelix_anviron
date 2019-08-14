@@ -2,7 +2,7 @@
     <string name="app_name">AnViron</string>
     <string name="tab_text_1">Quick Scan</string>
     <string name="tab_text_2">Deep Scan</string>
-    <string name="quick_description">Files are not sent remotely but are looked up in cloud servers to determine detections.\nLatency: Less than 5 sec/file.\nCost: 0.002$/file</string>
+    <string name="quick_description">Files are not sent remotely but corresponding hashes are looked up in cloud servers to determine detections.\nLatency: Less than 5 sec/file.\nCost: 0.002$/file</string>
     <string name="deep_description">Files will be sent for remote analysis\n\n<b>Static Mode -</b> Uses threat intelligence and machine learning to determine detections.\nLatency: Less than 30 sec/file.\nCost: 0.02$/file \n \n<b>Dynamic Mode -</b>In addition to static mode capabilities, simulates file execution behaviour analysis. More accurate than static mode.\nLatency: Less than 5 min/file.\nCost: 0.04$/file</string>
     <string name="send_checkbox"> Send file(s) for remote analysis</string>
     <string name="select_file_button"> Select folders/files</string>

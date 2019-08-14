@@ -96,9 +96,9 @@ public class GetFileReport {
             URL temp_url = new URL(local_url); 
             url = temp_url;
         }
-        Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
-        HttpURLConnection http_conn = (HttpURLConnection) url.openConnection(webproxy);
-        // HttpURLConnection http_conn = (HttpURLConnection) url.openConnection();
+//        Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
+//        HttpURLConnection http_conn = (HttpURLConnection) url.openConnection(webproxy);
+         HttpURLConnection http_conn = (HttpURLConnection) url.openConnection();
         String authorization = getAuthorization(access_token);
 
         http_conn.setRequestMethod(this.http_method);

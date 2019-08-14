@@ -148,12 +148,40 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10sp"
-            android:text="PayTM/Credit Card/Debit Card"
+            android:text="Mobile wallet or Credit/Debit card"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        android:paddingVertical="5sp">
+
+        <TextView
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30sp"
+            android:text="Payment gateway"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10sp"
+            android:text="PayTM"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -206,7 +234,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="10sp"
             android:paddingVertical="5sp"
-            android:text="Please complete the payment in order to proceed with scan. You will be redirected to PayTM payment gateway once you click PAY."
+            android:text="Please complete the payment in order to proceed with scan. Amount less than INR 1.00 will be rounded to INR 1.00. You will be redirected to PayTM payment gateway once you click PAY."
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="12sp" />

@@ -17,6 +17,6 @@ public interface FileDAO extends BaseDAO<File> {
     @Query("Select file_id FROM file WHERE file_path=:filePath")
     public String getFileIdByFilePath(String filePath);
 
-    @Query("Select f.file_path as files from file f join file_scan_mapping m on f.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanTypes")
-    public List<String> getTotalFilesByScanType(String scanTypes);
+    @Query("Select f.file_path as files from file f join file_scan_mapping m on f.file_id = m.file_id join scan s on s.scan_id = m.scan_id where s.type = :scanType and lower(m.status) NOT IN ('waiting for payment', 'payment failed')")
+    public List<String> getTotalFilesByScanType(String scanType);
 }

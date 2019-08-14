@@ -114,7 +114,12 @@ public class PaymentFragment extends DialogFragment {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast toast = Toast.makeText(context, "Redirecting to payment gateway...please hold on...", Toast.LENGTH_LONG);
+                toast.show();
+                toast.show();
+                toast.show();
+                toast.show();
+                toast.show();
                 try {
 
                     // For staging service
@@ -138,7 +143,15 @@ public class PaymentFragment extends DialogFragment {
                     paramMap.put("CHANNEL_ID", "WAP");
 
                     DecimalFormat df_inr = new DecimalFormat("#.##");
-                    String scanCostInr = df_inr.format(Double.parseDouble(scanCost) * usdToInr);
+
+                    String scanCostInr = "0.00";
+
+                    if ((Double.parseDouble(scanCost) * usdToInr) < 1.00) {
+                        scanCostInr = "1.00";
+                    } else {
+                        scanCostInr = df_inr.format(Double.parseDouble(scanCost) * usdToInr);
+                    }
+
                     paramMap.put("TXN_AMOUNT", scanCostInr);
 
                     paramMap.put("WEBSITE", "WEBSTAGING");
@@ -156,7 +169,14 @@ public class PaymentFragment extends DialogFragment {
                     } catch (Exception e) {
                         Log.e("AnvironException occurred while generating checksum", e.getMessage());
                         e.printStackTrace();
+                        handlePaymentFailure("Payment has failed due to due to payment gateway not reachable at the moment. Scan is aborted. Please try again after sometime.", dbInstance, scanId);
                     }
+
+                    if(checksum=="" && checksum.length()==0){
+                        handlePaymentFailure("Payment has failed due to payment gateway not reachable at the moment. Scan is aborted. Please try again after sometime.", dbInstance, scanId);
+                        return;
+                    }
+
                     paramMap.put("CHECKSUMHASH", checksum);
 
                     PaytmOrder order = new PaytmOrder(paramMap);
@@ -226,51 +246,67 @@ public class PaymentFragment extends DialogFragment {
     }
 
     public void handlePaymentFailure(String message, DatabaseService dbInstance, String scanId) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        toast.show();
+        toast.show();
+        toast.show();
+        toast.show();
+        toast.show();
         dbInstance.getMappingDAO().updateStatus("payment failed", scanId);
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }
 
     public String generateChecksum(String orderId, String customerId, String scanCostInr) throws Exception {
-        URL url = new URL("http://63.32.249.122:3000/generate_checksum");
-        // Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
-        // HttpURLConnection http_con = (HttpURLConnection) url.openConnection(webproxy);
-        HttpURLConnection http_con = (HttpURLConnection) url.openConnection();
-        http_con.setDoOutput(true);
-        http_con.setRequestMethod("POST");
-        http_con.setRequestProperty("Accept-Charset", "UTF-8");
-        // http_con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        http_con.setRequestProperty("Content-Type", "application/json; utf-8");
 
-        JSONObject postData = new JSONObject();
-        postData.put("ORDER_ID", orderId);
-        postData.put("CUST_ID", customerId);
-        postData.put("TXN_AMOUNT", scanCostInr);
+        String data = "";
+        HttpURLConnection http_con = null;
 
-        //String postData = String.format("orderId=%s&customerId=%s", URLEncoder.encode(orderId, "UTF-8"), URLEncoder.encode(customerId, "UTF-8"));
+        try {
 
-        OutputStreamWriter wr = new OutputStreamWriter(http_con.getOutputStream());
-        wr.write(postData.toString());
-        wr.flush();
+            URL url = new URL("http://63.32.249.122:3000/generate_checksum");
+            // Proxy webproxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.labs.localsite.sophos", 8080));
+            // HttpURLConnection http_con = (HttpURLConnection) url.openConnection(webproxy);
+            http_con = (HttpURLConnection) url.openConnection();
+            http_con.setDoOutput(true);
+            http_con.setConnectTimeout(5000);
+            http_con.setReadTimeout(5000);
+            http_con.setRequestMethod("POST");
+            http_con.setRequestProperty("Accept-Charset", "UTF-8");
+            // http_con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            http_con.setRequestProperty("Content-Type", "application/json; utf-8");
+
+            JSONObject postData = new JSONObject();
+            postData.put("ORDER_ID", orderId);
+            postData.put("CUST_ID", customerId);
+            postData.put("TXN_AMOUNT", scanCostInr);
+
+            //String postData = String.format("orderId=%s&customerId=%s", URLEncoder.encode(orderId, "UTF-8"), URLEncoder.encode(customerId, "UTF-8"));
+
+            OutputStreamWriter wr = new OutputStreamWriter(http_con.getOutputStream());
+            wr.write(postData.toString());
+            wr.flush();
 
         /*try(DataOutputStream wr = new DataOutputStream(http_con.getOutputStream())) {
             wr.write(postData.getBytes("UTF-8"));
         }*/
 
-        String data = "";
-        try {
+
             InputStream inputStream = http_con.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 data = data + line;
             }
+
         } catch (Exception e) {
             System.out.println(e.toString());
             data = "";
+
         } finally {
-            http_con.disconnect();
+            if (http_con != null) {
+                http_con.disconnect();
+            }
         }
 
         //Object obj = new JSONParser().parse(data);
