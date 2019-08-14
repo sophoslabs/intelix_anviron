@@ -38,6 +38,7 @@ public class PaymentFragment extends DialogFragment {
 
     View view;
     String scanId;
+    String scanCost;
     String scanType = null;
     int filesToScan = 0;
     TextView txtFilesToScan;
@@ -97,13 +98,17 @@ public class PaymentFragment extends DialogFragment {
         txtFilesToScan.setText(filesToScan + "");
 
         if (scanType.equalsIgnoreCase("quick")) {
-            txtScanCost.setText(df_dollar.format(filesToScan * quickCost));
+            scanCost = df_dollar.format(filesToScan * quickCost);
+            txtScanCost.setText("$ " + scanCost);
         } else if (scanType.equalsIgnoreCase("static")) {
-            txtScanCost.setText(df_dollar.format(filesToScan * staticCost));
+            scanCost = df_dollar.format(filesToScan * staticCost);
+            txtScanCost.setText("$ " + scanCost);
         } else if (scanType.equalsIgnoreCase("dynamic")) {
-            txtScanCost.setText(df_dollar.format(filesToScan * dynamicCost));
+            scanCost = df_dollar.format(filesToScan * dynamicCost);
+            txtScanCost.setText("$ " + scanCost);
         } else {
-            txtScanCost.setText(df_dollar.format(filesToScan * 0));
+            scanCost = df_dollar.format(filesToScan * 0);
+            txtScanCost.setText("$ " + scanCost);
         }
 
         btnPay.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +138,7 @@ public class PaymentFragment extends DialogFragment {
                     paramMap.put("CHANNEL_ID", "WAP");
 
                     DecimalFormat df_inr = new DecimalFormat("#.##");
-                    String scanCostInr = df_inr.format(Double.parseDouble(txtScanCost.getText().toString()) * usdToInr);
+                    String scanCostInr = df_inr.format(Double.parseDouble(scanCost) * usdToInr);
                     paramMap.put("TXN_AMOUNT", scanCostInr);
 
                     paramMap.put("WEBSITE", "WEBSTAGING");

@@ -87,6 +87,12 @@ public class DetectionsActivity extends AppCompatActivity implements BottomNavig
         bottomNavigationView.setPressed(true);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplication(), MainActivity.class);
+        startActivity(intent);
+    }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {

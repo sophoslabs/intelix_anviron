@@ -60,6 +60,12 @@ public class ReportsActivity extends AppCompatActivity implements BottomNavigati
         prepareReportsData(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplication(), MainActivity.class);
+        startActivity(intent);
+    }
+
     private void prepareReportsData(final ReportsActivity activity) {
 
         ReportViewModel reportViewModel = ViewModelProviders.of(activity).get(ReportViewModel.class);
