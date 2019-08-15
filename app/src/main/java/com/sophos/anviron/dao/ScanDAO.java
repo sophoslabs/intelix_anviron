@@ -1,7 +1,10 @@
 package com.sophos.anviron.dao;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.RoomWarnings;
+
 import java.util.List;
 import com.sophos.anviron.models.Scan;
 
@@ -21,6 +24,8 @@ public interface ScanDAO extends BaseDAO<Scan> {
     @Query("SELECT * FROM scan")
     public List<Scan> getScanInfo();
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Ignore
     @Query("SELECT s.scan_id as scan_id," +
             "s.type as scan_type," +
             "s.is_file_uploaded as is_file_uploaded," +

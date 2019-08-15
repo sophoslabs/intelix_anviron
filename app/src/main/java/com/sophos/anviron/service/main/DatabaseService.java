@@ -8,7 +8,7 @@ import com.sophos.anviron.dao.*;
 import com.sophos.anviron.models.*;
 
 @Database(entities = {Scan.class, File.class, FileScanMapping.class, Detection.class},
-            version = DatabaseService.DATABASE_VERSION)
+            version = DatabaseService.DATABASE_VERSION, exportSchema = false)
 public abstract class DatabaseService extends RoomDatabase {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "anviron_db";

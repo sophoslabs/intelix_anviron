@@ -142,14 +142,14 @@ public class PaymentFragment extends DialogFragment {
 
                     paramMap.put("CHANNEL_ID", "WAP");
 
-                    DecimalFormat df_inr = new DecimalFormat("#.##");
+                    DecimalFormat df_payments = new DecimalFormat("#.##");
 
                     String scanCostInr = "0.00";
 
                     if ((Double.parseDouble(scanCost) * usdToInr) < 1.00) {
                         scanCostInr = "1.00";
                     } else {
-                        scanCostInr = df_inr.format(Double.parseDouble(scanCost) * usdToInr);
+                        scanCostInr = df_payments.format(Double.parseDouble(scanCost) * usdToInr);
                     }
 
                     paramMap.put("TXN_AMOUNT", scanCostInr);
@@ -172,7 +172,7 @@ public class PaymentFragment extends DialogFragment {
                         handlePaymentFailure("Payment has failed due to due to payment gateway not reachable at the moment. Scan is aborted. Please try again after sometime.", dbInstance, scanId);
                     }
 
-                    if(checksum=="" && checksum.length()==0){
+                    if (checksum == "" || checksum.length() == 0) {
                         handlePaymentFailure("Payment has failed due to payment gateway not reachable at the moment. Scan is aborted. Please try again after sometime.", dbInstance, scanId);
                         return;
                     }
